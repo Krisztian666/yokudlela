@@ -2,7 +2,7 @@
 Java Microservice projekt kidolgozott órai minta.
 
 ## Feladat
-Valósítsuk meg az éttermi asztalok nyilvántartásához és foglalásához szükséges adatszerkezetet.
+Valósítsuk meg az éttermi asztalok nyilvántartásához és foglalásához szükséges üzleti logikát.
 
 ## Tools
-Lombok (https://projectlombok.org/)
+BeanUtils (https://commons.apache.org/proper/commons-beanutils/)
