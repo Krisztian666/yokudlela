@@ -6,11 +6,13 @@ import hu.yokudlela.table.store.ReservationRepository;
 import hu.yokudlela.table.store.TableRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * Szabad asztalok kezelése
  * @author (K)risztián
  */
+@Service
 public class FreeTableService {
     TableRepository tRep = new TableRepository();
     ReservationRepository rRep = new ReservationRepository();

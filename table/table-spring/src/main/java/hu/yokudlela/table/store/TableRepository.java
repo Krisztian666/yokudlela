@@ -6,14 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import javax.annotation.PostConstruct;
+import lombok.Builder;
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.stereotype.Service;
 
 /**
  * Asztalok kezelése
  * @author (K)risztián
  */
+@Service
 public class TableRepository {
     private static final List<Table> tables = new ArrayList<>();
+
+    @PostConstruct
+    public void  init(){
+    tables.add(
+            Table.builder()
+            .name("A1")
+            .capacity((byte)2)
+            .build()
+            );
+}
     
 /**
  * Asztal lekérdezés név alapján

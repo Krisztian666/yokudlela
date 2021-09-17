@@ -9,11 +9,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.stereotype.Service;
 
 /**
  * Foglalások tárolása
  * @author (K)risztián
  */
+@Service
 public class ReservationRepository {
     private static final List<Reservation> reservations = new ArrayList<>();
     

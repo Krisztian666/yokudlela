@@ -10,6 +10,5 @@
     <packaging>pom</packaging>
     <modules>
         <module>table-spring</module>
-        <module>table-datamodel</module>
     </modules>
 </project>
