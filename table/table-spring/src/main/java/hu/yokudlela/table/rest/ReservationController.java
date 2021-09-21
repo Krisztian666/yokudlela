@@ -3,7 +3,7 @@ package hu.yokudlela.table.rest;
 import hu.yokudlela.table.datamodel.Reservation;
 import hu.yokudlela.table.datamodel.Table;
 import hu.yokudlela.table.store.ReservationRepository;
-import hu.yokudlela.table.store.service.FreeTableService;
+import hu.yokudlela.table.service.FreeTableService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

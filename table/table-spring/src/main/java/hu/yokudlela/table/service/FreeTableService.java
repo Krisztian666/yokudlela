@@ -1,4 +1,4 @@
-package hu.yokudlela.table.store.service;
+package hu.yokudlela.table.service;
 
 import hu.yokudlela.table.datamodel.Reservation;
 import hu.yokudlela.table.datamodel.Table;

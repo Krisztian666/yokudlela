@@ -48,4 +48,5 @@ WebMvcConfigurer
 @JsonDeserialize
 @JsonSerialize    
 LocalDateTimeDeserializer
-LocalDateTimeSerializer    
+LocalDateTimeSerializer
+JSONSerializer    

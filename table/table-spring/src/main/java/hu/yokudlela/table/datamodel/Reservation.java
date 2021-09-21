@@ -20,7 +20,11 @@ import lombok.NoArgsConstructor;
 public class Reservation {
     @Schema(description = "Foglaló neve")
     private String name;
-    
+
+    @Schema(description = "Foglalás kezdete", example = "2021-10-10T10:00:10")
+    @JsonSerialize(using = ContactSerializer.class)
+    private String contact;
+
     @Schema(description = "Foglalás kezdete", example = "2021-10-10T10:00:10")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)    
