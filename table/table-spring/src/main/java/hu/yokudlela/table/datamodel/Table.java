@@ -5,12 +5,15 @@ import java.util.ArrayList;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 /**
  * Egy asztal
  * @author (K)risztián
  */
 @Data
 @EqualsAndHashCode()
+@NoArgsConstructor
 public class Table {
     private String name;
     private boolean available = true;
