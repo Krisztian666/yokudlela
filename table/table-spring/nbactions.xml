@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-docker:build</actionName>
+            <displayName>docker:build</displayName>
+            <goals>                
+                <goal>clean</goal>
+                <goal>package</goal>
+                <goal>fabric8:build</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-docker:push</actionName>
+            <displayName>docker:push</displayName>
+            <goals>                
+                <goal>clean</goal>
+                <goal>package</goal>
+                <goal>fabric8:build</goal>
+                <goal>fabric8:push</goal>
+            </goals>
+        </action>
+    </actions>

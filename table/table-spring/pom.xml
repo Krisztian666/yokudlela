@@ -53,6 +53,7 @@
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+         
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -66,6 +67,45 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            
+                <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>fabric8-maven-plugin</artifactId> 
+        <version>4.4.1</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>krisztian4dsoft/yokudlela</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}/src/main/resources/docker/</dockerFileDir>
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <tags>
+                                    <tag>table-latest</tag>
+                                    <tag>table-4.0</tag>
+                                </tags>
+                                <assembly>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>${project.build.directory}/table-spring.jar</source>
+                                                <outputDirectory>./opt</outputDirectory>
+                                                <destName>table-spring.jar</destName>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                            </build>
+                        </image>
+                    </images>
+                    <authConfig>
+                        <username>user</username>
+                        <password>password</password>
+                    </authConfig>
+                </configuration>
+            
             </plugin>
         </plugins>
     </build>

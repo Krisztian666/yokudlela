@@ -1,0 +1,6 @@
+version: '3'
+services:
+  table:
+    image: krisztian4dsoft/yokudlela:table-4.0
+    ports:
+      - 8080:8080
