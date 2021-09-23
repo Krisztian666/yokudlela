@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,13 @@ public class AdminController {
 	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
-    @Operation(summary = "Új aztal felvitele")
+    @Operation(
+            security = {
+            @SecurityRequirement(name = "apikey",scopes = {"table"}),
+            @SecurityRequirement(name = "openid",scopes = {"table"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"table"}),
+    },
+            summary = "Új aztal felvitele")
     @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
     public Table add(@Parameter(description = "Az új asztal",required = true) @RequestBody(required = true) Table pData) throws Exception {
         tableService.add(pData);

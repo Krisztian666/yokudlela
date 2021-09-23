@@ -1,5 +1,16 @@
 package hu.yokudlela.table.spring;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.security.OAuthFlow;
+import io.swagger.v3.oas.annotations.security.OAuthFlows;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,6 +24,56 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author (K)risztián
  */
+
+@SecurityScheme(        
+        bearerFormat = "JWT",
+        type = SecuritySchemeType.OAUTH2, 
+        name = "oauth2",          
+        paramName = "Authorization",          
+        description = "KeyCloak Alteo",
+        in = SecuritySchemeIn.HEADER,
+        flows = @OAuthFlows(
+                implicit = @OAuthFlow(authorizationUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/protocol/openid-connect/auth?client_id=account&redirect_uri=http://172.17.0.1:8080/table/swagger-ui/oauth2-redirect.html&response_type=code&scope=openid") 
+            )
+        )
+
+@SecurityScheme(        
+        bearerFormat = "JWT",
+        type = SecuritySchemeType.APIKEY, 
+        name = "apikey",          
+        paramName = "Authorization",          
+        description = "KeyCloak Alteo",
+        in = SecuritySchemeIn.HEADER,
+        openIdConnectUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/.well-known/openid-configuration"        
+        )
+
+
+@SecurityScheme(        
+        type = SecuritySchemeType.OPENIDCONNECT, 
+        name = "openid",          
+        description = "KeyCloak Alteo",
+        openIdConnectUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/.well-known/openid-configuration"        
+        )
+
+@OpenAPIDefinition(
+        servers = { 
+            @Server(url = "http://172.17.0.1:8080/table", description = "local dev"),
+            @Server(url = "https://www.yokudlela.hu:1980//table", description = "test") }, 
+        security ={
+            @SecurityRequirement(name = "apikey", scopes ={"table"} ),
+            @SecurityRequirement(name = "openid", scopes ={"table"} )
+        },
+        
+        info = @Info(
+                title = "Yokudlela Table API", 
+                version = "v1", 
+                description = "description = \"Yokudlela Table API for Graphical User Interface .", 
+                license = @License(
+                        name = "Custom 4D Soft", 
+                        url = "https://www.4dsoft.hu"), 
+                contact = @Contact(
+                        url = "https://www.4dsoft.hu", 
+                        name = "Karóczkai Krisztián", email = "krisztian_karoczkai@4dsoft.hu")))
 
 @Configuration
 @EnableWebMvc

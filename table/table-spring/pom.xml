@@ -8,12 +8,20 @@
     </parent>
     <artifactId>table-spring</artifactId>
     <packaging>jar</packaging>
+    
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>12.0.4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
     <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>table-datamodel</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -48,6 +56,19 @@
             <artifactId>jackson-core</artifactId>
             <version>2.12.5</version>
         </dependency>
+    
+     <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+            <version>12.0.4</version>
+        </dependency>
+    
+    <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.12.5</version>
+</dependency>
+
     </dependencies>
     
     <build>
@@ -84,7 +105,7 @@
                                 </assembly>
                                 <tags>
                                     <tag>table-latest</tag>
-                                    <tag>table-4.0</tag>
+                                    <tag>table-5.0</tag>
                                 </tags>
                                 <assembly>
                                     <inline>
