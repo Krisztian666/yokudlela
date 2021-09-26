@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,7 +75,10 @@ public class ReservationController {
     })
     @Operation(summary = "Asztal foglalás")    
     @PostMapping(path = "/save")
-    public void save(@Parameter(description = "Foglalás", required = true) @RequestBody(required = true) Reservation pData) throws Exception{
+    public void save(
+            @Valid
+            @Parameter(description = "Foglalás", required = true) 
+            @RequestBody(required = true) Reservation pData) throws Exception{
          service.add(pData);
     }
 }

@@ -12,8 +12,15 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController()
 @RequestMapping(path = "/admin")
+@Validated
 public class AdminController {
 
     @Autowired
@@ -44,8 +52,13 @@ public class AdminController {
     @Operation(summary = "Asztal lekérdezés név alapján")
     @GetMapping(path = "/getbyname/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Table getByName(
-        @Parameter(description="Asztal neve", required = true, example = "A1")
-        @PathVariable(name = "name", required = true) String pId) throws Exception {
+        @Parameter(description="Asztal neve", required = false, example = "A1")
+        @PathVariable(name = "name", required = false) 
+        @NotEmpty(message = "error.table.name.notset")
+        @NotBlank(message = "error.table.name.notset") 
+        @Size(min=2, max = 10, message = "error.table.name.short_or_long") 
+        @Pattern(regexp = "^[A-Z][a-zA-Z0-9]+$", message = "error.table.name.pattern_is_bad")        
+        String pId) throws Exception {
         return tableService.getByName(pId);
     }
     
@@ -78,7 +91,10 @@ public class AdminController {
     },
             summary = "Új aztal felvitele")
     @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Table add(@Parameter(description = "Az új asztal",required = true) @RequestBody(required = true) Table pData) throws Exception {
+    public Table add(
+            @Valid 
+            @RequestBody(required = true) 
+            Table pData) throws Exception {
         tableService.add(pData);
         return pData;
     }
