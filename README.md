@@ -6,11 +6,12 @@ https://www.dropbox.com/sh/mr6non6u1futfba/AAD24jiDjnmDhRJthh2TKWLVa?dl=0
 
 # Bevezető
 https://microservices.io/
+https://12factor.net/
 
 # Feladatok
 ## Asztalfoglalás (kidolgozott minta)
 Étteremben lévő asztalok kezelésére, és foglalást megvalósító szolgáltatás.
-### Egy aztalról tároljuk
+### Egy asztalról tároljuk
 - Nevét
 - Székek számát
 - Fényképeket az asztalról, és környékéről
