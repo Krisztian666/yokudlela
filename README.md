@@ -20,7 +20,7 @@ https://microservices.io/
 - Kezteti időt
 - Lejárati időt
 - Létszám
-### Föntös üzleti funkciók:
+### Fontös üzleti funkciók:
 - Megadott időben elérhető szabad asztalok listája.
 
 ## Raktár
