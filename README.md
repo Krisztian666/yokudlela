@@ -1,4 +1,4 @@
-# yokudlela
+# YOKUDLELA
 Java Microservice projekt kidolgozott minta.
 
 # Xubuntu VirtualBox (fileokat egyenként töltsd le)
@@ -22,10 +22,29 @@ https://12factor.net/
 - Lejárati időt
 - Létszám
 ### Fontös üzleti funkciók:
+- Asztalok kezelése (CRUD)
+- Foglalás
 - Megadott időben elérhető szabad asztalok listája.
 
 ## Raktár
 A raktárban lévő alapanyagokat egy hierarchikus listába rendezve tároljuk. Egy alapanyag több csoportban is szerepelhet. Minden beérkezett alapanyagról nyílvántartjuk a lejárati idejét.   
+### Árucsoportokról nyilvántartjuk
+- Nevét
+- Leírását
+- A csoportban lévő konkrét árukat
+### Árukról nyilvántartjuk
+- Nevét
+- Leírását
+- Lejárati idejét => ugyan azon áruból egyszerre lehett több lejárati idejővel más-más darabszámban- 
+- Beszerzési árát
+- Mennyiség
+- Fényképeket
+- Helyét a raktárban => lehet több rakár/hűtő, és polc is
+### Fontos üzleti funkciók
+- Ki és bevételezés.
+- Aktuális készlet meghatározása- termékenként
+- Selejtezés
+- Adott időn belül lejáró szavatosságú termékek listája. 
 
 ## Étlap és Itallap
 
