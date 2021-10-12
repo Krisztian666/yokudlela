@@ -61,3 +61,31 @@ A raktárban lévő alapanyagokat egy hierarchikus listába rendezve tároljuk. 
 ## Selejtezés, hulladék kezelés
 
 ## Kassza
+
+
+# Mérföldkövek
+## Bevezető
+### Hogyan és miért kezdjük el
+### Adatszerkezet
+### Szolgáltatások
+### REST és OpenAPI
+## Docker
+### Maven plugin
+## Hitelesítés, Validáció Hibakezelés
+### OpenID, OAUTH2, IAM
+### Validáció és hibakezelés
+## Relációs Adatbázis kezelés
+### JPA, SpringData
+### Adatbázis tartalmak verziókezelés
+## Cache
+### Redish
+### NoSQL(MongoDB)
+## Szolgáltatások összekapcsolása
+### Közvetlen áthívások
+### RabitMQ
+### Kafka
+## Log
+### SLF4J
+### Graylog, ElasticSearch
+
+
