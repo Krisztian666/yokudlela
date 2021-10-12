@@ -66,14 +66,23 @@ A raktárban lévő alapanyagokat egy hierarchikus listába rendezve tároljuk. 
 # Mérföldkövek
 ## Bevezető
 ### Hogyan és miért kezdjük el
+  https://microservices.io/
+  https://microservices.io/patterns/index.html
 ### Adatszerkezet
+  https://github.com/Krisztian666/yokudlela/tree/01-data-models
 ### Szolgáltatások
-### REST és OpenAPI
+  https://github.com/Krisztian666/yokudlela/tree/02-business-logic
+### REST, OpenAPI, CORS
+  https://github.com/Krisztian666/yokudlela/tree/03-spring-rest
 ## Docker
+### CI/CD megoldja
 ### Maven plugin
+  https://github.com/Krisztian666/yokudlela/tree/04-spring-maven-docker
 ## Hitelesítés, Validáció Hibakezelés
 ### OpenID, OAUTH2, IAM
+  https://github.com/Krisztian666/yokudlela/tree/05-spring-iam
 ### Validáció és hibakezelés
+  https://github.com/Krisztian666/yokudlela/tree/06-spring-validation
 ## Relációs Adatbázis kezelés
 ### JPA, SpringData
 ### Adatbázis tartalmak verziókezelés
