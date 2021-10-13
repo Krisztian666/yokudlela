@@ -60,6 +60,29 @@ A raktárban lévő alapanyagokat egy hierarchikus listába rendezve tároljuk. 
 ## Pincér
 
 ## Beszállítók
+Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összekapcsolni.
+### Egy supplier-ről nyilván tartjuk
+- nevét
+- elérhetőségeit
+### Egy consumer-ről nyilvántartjuk
+- nevét
+- elérhetőségeit
+### Egy product-ról nyilvántartjuk
+- nevét
+- mennyiségi egységét
+- consumerenént a saját azonosítójukat
+- supplier-enként a készlet és ár adataikat.
+
+### Fontos üzleti funkciók
+- Consumer-ek, Supplirer-ek és Product-ok, felvitele.
+- Partnereknél :
+    - Product-okhoz saját azonosítók felvitelét
+    - Saját azonosító alapján meghatározni, hogy melyik Supplier-nél milyen készlet milyen áron érhető el. 
+    - Rendelést leadni (automatikusan megtörténik a készlet csökkentés)
+- Supplier-nél:
+    - Rendszerben lévő Product készletett feltölteni
+    - Adott Product előállítását megkezdeni/leállítani 
+- Admin, belső Product törzset módosítani
 
 ## Selejtezés, hulladék kezelés
 
