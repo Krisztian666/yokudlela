@@ -54,6 +54,20 @@ A raktárban lévő alapanyagokat egy hierarchikus listába rendezve tároljuk. 
 ## Recept
 
 ## Menü
+Adott napokra lehessen a recept gyűjteményből nagy mennyiségben ételeket készíteni, tartsuk nyilván ktuálisan miből mennyi fogyott. Lehessen különböző ételeket csoportokkba (A, B, C menú) szervezni.
+### Csoportokról nyilvántartjuk
+- neve
+### cCsoportok naphopz rendelése
+- melyik csoport.
+- melyik napon érhető el
+- adott napot mi a tartalma
+- adott napon mennyi az ára
+
+### Ételekről nyilvántartjuk
+-  neve (lehet fantázia név is)
+-  milyen recept alapján készül
+
+ 
 
 ## Folyamatok
 
