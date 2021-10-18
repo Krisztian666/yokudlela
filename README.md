@@ -8,8 +8,9 @@ https://docs.docker.com/desktop/windows/install/
 https://www.dropbox.com/sh/mr6non6u1futfba/AAD24jiDjnmDhRJthh2TKWLVa?dl=0
 
 # Bevezető
-https://microservices.io/
-https://12factor.net/
+- https://microservices.io/
+- https://12factor.net/
+- https://youtu.be/ZN6NDXqUrek?t=130
 
 # Feladatok
 ## Asztalfoglalás (kidolgozott minta)
