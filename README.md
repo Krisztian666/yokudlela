@@ -1,6 +1,9 @@
 # YOKUDLELA
 Java Microservice projekt kidolgozott minta.
 
+https://youtu.be/00ySr6WpF_I
+
+
 #Docker
 https://docs.docker.com/desktop/windows/install/
 
