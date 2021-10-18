@@ -1,12 +1,12 @@
 # yokudlela
-Java Microservice projekt kidolgozott órai minta.
+Asztalok kezeléséhez és foglaláshoz szükséges adatszerkezetek.
 
 ## Bevezető gondolatok
-Amikor néhány homályosan megfogalmazott funkcionális igényen kívül nincs más kiindulási pont egy feladat megvalósításához gondold át, hogy az adott műveletek megvalósításához milyen adatokra lesz szükséged és **készíts** ezekre az adatokra **objektumokat**. 
+- Amikor néhány homályosan megfogalmazott funkcionális igényen kívül nincs más kiindulási pont egy feladat megvalósításához gondold át, hogy az adott műveletek megvalósításához milyen adatokra lesz szükséged és **készíts** ezekre az adatokra **objektumokat**. 
+- https://youtu.be/GUOE1Ar822Q
 
 ## Feladat
-Valósítsuk meg az éttermi asztalok nyilvántartásához és foglalásához szükséges adatszerkezetet.
-
+Hozd létre a számodra szükséges adatszerkezeteket.
 
 
 ## Tools
