@@ -1,19 +1,15 @@
 # YOKUDLELA
 Java Microservice projekt kidolgozott minta.
 
-https://youtu.be/00ySr6WpF_I
 
-
-#Docker
-https://docs.docker.com/desktop/windows/install/
+# Bevezető
+- https://youtu.be/00ySr6WpF_I  (Így használd a tananyagot)
+- https://microservices.io/  (Összefoglaló oldal a Microservice témakörről)
+- https://12factor.net/  (Néhány fejlesztési jótanács)
+- https://youtu.be/ZN6NDXqUrek?t=130  (Monolit és Microservice rendszerek összehasonlítása)
 
 # Xubuntu VirtualBox (fileokat egyenként töltsd le)
 https://www.dropbox.com/sh/mr6non6u1futfba/AAD24jiDjnmDhRJthh2TKWLVa?dl=0
-
-# Bevezető
-- https://microservices.io/
-- https://12factor.net/
-- https://youtu.be/ZN6NDXqUrek?t=130
 
 # Feladatok
 ## Asztalfoglalás (kidolgozott minta)
