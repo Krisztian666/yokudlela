@@ -109,7 +109,13 @@ public class AdminController {
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Sikeres művelet", 
 	    content = { @Content(mediaType = "application/json") }),
-	@ApiResponse(responseCode = "500", description = "Nincs ilyen asztal", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra", 
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(summary = "Asztal törlése")
@@ -130,7 +136,13 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres művelet", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Nincs ilyen asztal", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra", 
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(summary = "Asztal engedélyezése")
@@ -145,7 +157,13 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres művelet", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Nincs ilyen asztal", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra", 
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(summary = "Asztal módosítása")    
@@ -161,7 +179,13 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres módosítás", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Asztal nem létezik", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra", 
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(summary = "Asztal módosítása")
