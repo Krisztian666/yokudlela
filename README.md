@@ -1,8 +1,9 @@
-# yokudlela-oe
+# Yokudlela
 Java Microservice projekt example.
 
 ## Task
-Hitelesítés külső identity managerrel
+- Valósítsd meg hogy a REST API-d egys funkciói csak megadott jogosultsággal rendelkező felhasználók számára legyen elérhető.
+- https://youtu.be/nhdvTtvSkZk
 
 ## Important information
 - https://datatracker.ietf.org/doc/html/rfc6749
@@ -25,38 +26,8 @@ https://www.baeldung.com/spring-cors
 
 
 ### Spring
-@Configuration
-@EnableWebMvc
-@EnableAutoConfiguration
-@ComponentScan(basePackages = "hu.yokudlela.table")
-@SpringBootApplication
-@Bean
+Principal
 
-@Service
-@Autowired
-@RestController
-@RequestMapping
-@GetMapping
-@PostMapping
-@PutMapping
-@DeleteMapping
-@RequestParam
-@PathVariable
-@RequestBody
-
-WebMvcConfigurer
-
-### OpenAPI
-@ApiResponses
-@ApiResponse
-@Content
-@Schema
-@Operation
-@Parameter
-
-### JSON
-@JsonDeserialize
-@JsonSerialize    
-LocalDateTimeDeserializer
-LocalDateTimeSerializer
-JSONSerializer    
+### Keycloak
+KeycloakPrincipal
+AccessToken
