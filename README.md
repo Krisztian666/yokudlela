@@ -2,10 +2,19 @@
 Java Microservice projekt example.
 
 ## Task
-REST Interface
+Hitelesítés külső identity managerrel
 
-## Tools
-https://spring.io/quickstart
+## Segítség
+- https://datatracker.ietf.org/doc/html/rfc6749
+- https://openid.net/developers/specs/
+- https://www.baeldung.com/spring-boot-keycloak
+- https://www.baeldung.com/keycloak-custom-user-attributes
+
+## Maven
+> <dependency>
+>            <groupId>org.keycloak</groupId>
+>            <artifactId>keycloak-spring-boot-starter</artifactId>
+> </dependency>
 
 ## Important information
 https://tools.ietf.org/html/rfc2616
