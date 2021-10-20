@@ -15,6 +15,25 @@ REST Interface
 - https://spring.io/quickstart
 
 
+## Maven
+```
+<dependency>
+  <groupId>org.springdoc</groupId>
+  <artifactId>springdoc-openapi-ui</artifactId>
+  <version>1.5.10</version>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+  <version>2.5.4</version>
+</dependency>        
+<dependency>
+  <groupId>com.fasterxml.jackson.core</groupId>
+  <artifactId>jackson-core</artifactId>
+  <version>2.12.5</version>
+</dependency>
+```
+
 ### Spring
 - @Configuration
 - @EnableWebMvc
