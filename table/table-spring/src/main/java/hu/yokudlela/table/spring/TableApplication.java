@@ -29,7 +29,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         name = "oauth2",          
         description = "KeyCloak Yokudlela",
         flows = @OAuthFlows(
-                implicit = @OAuthFlow(authorizationUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/protocol/openid-connect/auth?client_id=account&redirect_uri=http://172.17.0.1:8080/table/swagger-ui/oauth2-redirect.html&response_type=code&scope=openid") 
+                implicit = @OAuthFlow(authorizationUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/protocol/openid-connect/auth"
+                        + "?client_id=account"
+                        + "&redirect_uri=http://172.17.0.1:8080/table/swagger-ui/oauth2-redirect.html"
+                        + "&response_type=code"
+                        + "&scope=openid") 
             )
         )
 

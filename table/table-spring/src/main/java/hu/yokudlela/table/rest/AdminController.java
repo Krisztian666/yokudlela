@@ -145,7 +145,14 @@ public class AdminController {
     	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
-    @Operation(summary = "Asztal engedélyezése")
+    @Operation(
+                        security = {
+            @SecurityRequirement(name = "apikey",scopes = {"table"}),
+            @SecurityRequirement(name = "openid",scopes = {"table"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"table"}),
+    },
+
+            summary = "Asztal engedélyezése")
     @PutMapping(path = "/enable/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void enable(
         @Parameter(description = "Asztal neve", required = true, example = "A1")
@@ -166,7 +173,14 @@ public class AdminController {
     	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
-    @Operation(summary = "Asztal módosítása")    
+    @Operation(            
+            security = {
+            @SecurityRequirement(name = "apikey",scopes = {"table"}),
+            @SecurityRequirement(name = "openid",scopes = {"table"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"table"}),
+    },
+            
+        summary = "Asztal módosítása")    
     @PutMapping(path = "/disable/{name}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public void disable(
         @Parameter(description = "Asztal neve", required = true) 
@@ -188,7 +202,14 @@ public class AdminController {
     	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
-    @Operation(summary = "Asztal módosítása")
+    @Operation(
+                        security = {
+            @SecurityRequirement(name = "apikey",scopes = {"table"}),
+            @SecurityRequirement(name = "openid",scopes = {"table"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"table"}),
+    },
+
+            summary = "Asztal módosítása")
     @PutMapping(path = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
     public Table modify(
         @Parameter(description = "Asztal", required = true) 
