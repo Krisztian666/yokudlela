@@ -1,9 +1,9 @@
 version: '3'
 services:
-  table:
-    image: krisztian4dsoft/yokudlela:table-latest
-    ports:
-      - 8080:8080
+#  table:
+#    image: krisztian4dsoft/yokudlela:table-latest
+#    ports:
+#      - 8080:8080
 
   db:
     image: mariadb:10.1.34
@@ -32,8 +32,9 @@ services:
       - DB_ADDR=db
       - DB_DATABASE=keycloak
       - DB_PORT=3306
-      - KEYCLOAK_LOGLEVEL=DEBUG
-      - ROOT_LOGLEVEL=DEBUG
+      - KEYCLOAK_IMPORT=/tmp/example-realm.json
+    volumes:
+      - ${PWD}/realm-export.json:/tmp/example-realm.json
     depends_on:
       - db
 

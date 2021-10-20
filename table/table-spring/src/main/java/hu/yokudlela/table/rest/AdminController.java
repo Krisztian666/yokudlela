@@ -11,7 +11,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.lang.reflect.InvocationTargetException;
+import java.security.Principal;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.representations.AccessToken;
+import org.keycloak.representations.AccessToken.Access;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,13 +29,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 /**
  * @author (K)risztián
  */
 @RestController()
 @RequestMapping(path = "/admin")
+
 public class AdminController {
 
+    
+    
     @Autowired
     TableRepository tableService;
 
@@ -67,7 +76,13 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres felvitel", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token", 
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra", 
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(
@@ -78,8 +93,15 @@ public class AdminController {
     },
             summary = "Új aztal felvitele")
     @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Table add(@Parameter(description = "Az új asztal",required = true) @RequestBody(required = true) Table pData) throws Exception {
-        tableService.add(pData);
+    @RolesAllowed("user")
+    public Table add(
+            Principal principal,
+            @Parameter(description = "Az új asztal",required = true) @RequestBody(required = true) Table pData) throws Exception {
+        KeycloakPrincipal kPrincipal = (KeycloakPrincipal) principal;
+        AccessToken token = kPrincipal.getKeycloakSecurityContext().getToken();
+        Access customClaims = token.getResourceAccess("account");
+        System.out.println("ROLES:"+customClaims.getRoles());
+        tableService.add(pData);        
         return pData;
     }
 

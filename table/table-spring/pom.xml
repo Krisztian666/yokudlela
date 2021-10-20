@@ -21,6 +21,7 @@
         </dependencies>
     </dependencyManagement>
     
+    
     <dependencies>
         <dependency>
             <groupId>commons-beanutils</groupId>
@@ -28,12 +29,14 @@
             <version>1.9.2</version>
             <type>jar</type>
         </dependency>
-
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.10</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <type>jar</type>
         </dependency>
+
+
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
@@ -44,30 +47,31 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.5.4</version>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.20</version>
-            <type>jar</type>
-        </dependency>
         
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.12.5</version>
         </dependency>
-    
-     <dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.12.5</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-starter</artifactId>
-            <version>12.0.4</version>
         </dependency>
-    
-    <dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-annotations</artifactId>
-    <version>2.12.5</version>
+        
+<!--
+<dependency>
+    <groupId>org.keycloak</groupId>
+    <artifactId>keycloak-admin-client</artifactId>
+    <version>12.0.4</version>
 </dependency>
+-->
+        
 
     </dependencies>
     
@@ -90,10 +94,10 @@
                 </executions>
             </plugin>
             
-                <plugin>
-        <groupId>io.fabric8</groupId>
-        <artifactId>fabric8-maven-plugin</artifactId> 
-        <version>4.4.1</version>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>fabric8-maven-plugin</artifactId> 
+                <version>4.4.1</version>
                 <configuration>
                     <images>
                         <image>
