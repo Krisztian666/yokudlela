@@ -11,11 +11,12 @@ Hitelesítés külső identity managerrel
 - https://www.baeldung.com/keycloak-custom-user-attributes
 
 ## Maven
-> &lt;dependency>
+'''
+> &lt;dependency> 
 >            &lt;groupId>org.keycloak&lt;/groupId>
 >            &lt;artifactId>keycloak-spring-boot-starter&lt;/artifactId>
 > &lt;/dependency>
-
+'''
 ## Important information
 https://tools.ietf.org/html/rfc2616
 https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration
