@@ -4,17 +4,17 @@ Java Microservice projekt example.
 ## Task
 Hitelesítés külső identity managerrel
 
-## Segítség
+## Important information
 - https://datatracker.ietf.org/doc/html/rfc6749
 - https://openid.net/developers/specs/
 - https://www.baeldung.com/spring-boot-keycloak
 - https://www.baeldung.com/keycloak-custom-user-attributes
-
+- 
 ## Maven
 ```
 <dependency> 
-            &lt;groupId>org.keycloak&lt;/groupId>
-            &lt;artifactId>keycloak-spring-boot-starter&lt;/artifactId>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
  </dependency>
 ```
 ## Important information
