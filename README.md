@@ -12,10 +12,10 @@ Hitelesítés külső identity managerrel
 
 ## Maven
 ```
-> &lt;dependency> 
->            &lt;groupId>org.keycloak&lt;/groupId>
->            &lt;artifactId>keycloak-spring-boot-starter&lt;/artifactId>
-> &lt;/dependency>
+<dependency> 
+            &lt;groupId>org.keycloak&lt;/groupId>
+            &lt;artifactId>keycloak-spring-boot-starter&lt;/artifactId>
+ </dependency>
 ```
 ## Important information
 https://tools.ietf.org/html/rfc2616
