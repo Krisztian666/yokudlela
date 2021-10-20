@@ -1,4 +1,4 @@
-# yokudlela-oe
+# Yokudlela
 Java Microservice projekt example.
 
 ## Task
@@ -15,37 +15,36 @@ https://www.baeldung.com/spring-cors
 
 
 ### Spring
-@Configuration
-@EnableWebMvc
-@EnableAutoConfiguration
-@ComponentScan(basePackages = "hu.yokudlela.table")
-@SpringBootApplication
-@Bean
-
-@Service
-@Autowired
-@RestController
-@RequestMapping
-@GetMapping
-@PostMapping
-@PutMapping
-@DeleteMapping
-@RequestParam
-@PathVariable
-@RequestBody
-
-WebMvcConfigurer
+- @Configuration
+- @EnableWebMvc
+- @EnableAutoConfiguration
+- @ComponentScan(basePackages = "hu.yokudlela.table")
+- @SpringBootApplication
+- @Bean
+- @Service
+- @Autowired
+- @RestController
+- @RequestMapping
+- @GetMapping
+- @PostMapping
+- @PutMapping
+- @DeleteMapping
+- @RequestParam
+- @PathVariable
+- @RequestBody
+- WebMvcConfigurer
 
 ### OpenAPI
-@ApiResponses
-@ApiResponse
-@Content
-@Schema
-@Operation
-@Parameter
+- @ApiResponses
+- @ApiResponse
+- @Content
+- @Schema
+- @Operation
+- @Parameter
 
 ### JSON
-@JsonDeserialize
-@JsonSerialize    
-LocalDateTimeDeserializer
-LocalDateTimeSerializer    
+- @JsonDeserialize
+- @JsonSerialize
+- JsonSerializer    
+- LocalDateTimeDeserializer
+- LocalDateTimeSerializer    
