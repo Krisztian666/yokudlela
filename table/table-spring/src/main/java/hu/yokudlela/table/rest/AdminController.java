@@ -11,7 +11,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import java.lang.reflect.InvocationTargetException;
+import java.security.Principal;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.representations.AccessToken;
+import org.keycloak.representations.AccessToken.Access;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -53,11 +58,11 @@ public class AdminController {
     @GetMapping(path = "/getbyname/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Table getByName(
         @Parameter(description="Asztal neve", required = false, example = "A1")
-        @PathVariable(name = "name", required = false) 
+        @PathVariable(name = "name", required = false)
         @NotEmpty(message = "error.table.name.notset")
-        @NotBlank(message = "error.table.name.notset") 
-        @Size(min=2, max = 10, message = "error.table.name.short_or_long") 
-        @Pattern(regexp = "^[A-Z][a-zA-Z0-9]+$", message = "error.table.name.pattern_is_bad")        
+        @NotBlank(message = "error.table.name.notset")
+        @Size(min=2, max = 10, message = "error.table.name.short_or_long")
+        @Pattern(regexp = "^[A-Z][a-zA-Z0-9]+$", message = "error.table.name.pattern_is_bad")
         String pId) throws Exception {
         return tableService.getByName(pId);
     }
@@ -80,7 +85,13 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres felvitel", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Asztal már létezik", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra",
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik",
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(
@@ -91,9 +102,17 @@ public class AdminController {
     },
             summary = "Új aztal felvitele")
     @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
+   public Table add(
+            Principal principal,
+            @Parameter(description = "Az új asztal",required = true) @RequestBody(required = true) Table pData) throws Exception {
+        KeycloakPrincipal kPrincipal = (KeycloakPrincipal) principal;
+        AccessToken token = kPrincipal.getKeycloakSecurityContext().getToken();
+        Access customClaims = token.getResourceAccess("account");
+        System.out.println("ROLES:"+customClaims.getRoles());
+        tableService.add(pData);
     public Table add(
-            @Valid 
-            @RequestBody(required = true) 
+            @Valid
+            @RequestBody(required = true)
             Table pData) throws Exception {
         tableService.add(pData);
         return pData;
@@ -103,7 +122,13 @@ public class AdminController {
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Sikeres művelet", 
 	    content = { @Content(mediaType = "application/json") }),
-	@ApiResponse(responseCode = "500", description = "Nincs ilyen asztal", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra",
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik",
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(summary = "Asztal törlése")
@@ -124,10 +149,23 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres művelet", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Nincs ilyen asztal", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra",
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik",
 	    content = { @Content(mediaType = "application/json") })
     })
-    @Operation(summary = "Asztal engedélyezése")
+    @Operation(
+                        security = {
+            @SecurityRequirement(name = "apikey",scopes = {"table"}),
+            @SecurityRequirement(name = "openid",scopes = {"table"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"table"}),
+    },
+
+            summary = "Asztal engedélyezése")
     @PutMapping(path = "/enable/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void enable(
         @Parameter(description = "Asztal neve", required = true, example = "A1")
@@ -139,10 +177,23 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres művelet", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Nincs ilyen asztal", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra",
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik",
 	    content = { @Content(mediaType = "application/json") })
     })
-    @Operation(summary = "Asztal módosítása")    
+    @Operation(
+            security = {
+            @SecurityRequirement(name = "apikey",scopes = {"table"}),
+            @SecurityRequirement(name = "openid",scopes = {"table"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"table"}),
+    },
+
+        summary = "Asztal módosítása")
     @PutMapping(path = "/disable/{name}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public void disable(
         @Parameter(description = "Asztal neve", required = true) 
@@ -155,10 +206,23 @@ public class AdminController {
         @ApiResponse(responseCode = "200", description = "Sikeres módosítás", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = Table.class)) }),
-	@ApiResponse(responseCode = "500", description = "Asztal nem létezik", 
+	@ApiResponse(responseCode = "403", description = "Nincs megfelelő jogosultságod",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "401", description = "Lejárt token",
+	    content = { @Content(mediaType = "application/json") }),
+      	@ApiResponse(responseCode = "302", description = "Nincs bejelentkezve, átirányítás a login oldalra",
+	    content = { @Content(mediaType = "application/json") }),
+    	@ApiResponse(responseCode = "500", description = "Asztal már létezik",
 	    content = { @Content(mediaType = "application/json") })
     })
-    @Operation(summary = "Asztal módosítása")
+    @Operation(
+                        security = {
+            @SecurityRequirement(name = "apikey",scopes = {"table"}),
+            @SecurityRequirement(name = "openid",scopes = {"table"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"table"}),
+    },
+
+            summary = "Asztal módosítása")
     @PutMapping(path = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
     public Table modify(
         @Parameter(description = "Asztal", required = true) 

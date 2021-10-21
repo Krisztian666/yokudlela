@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.OAuthFlow;
 import io.swagger.v3.oas.annotations.security.OAuthFlows;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
@@ -26,44 +25,38 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author (K)risztián
  */
 
-@SecurityScheme(        
-        bearerFormat = "JWT",
+@SecurityScheme(
         type = SecuritySchemeType.OAUTH2, 
         name = "oauth2",          
-        paramName = "Authorization",          
-        description = "KeyCloak Alteo",
-        in = SecuritySchemeIn.HEADER,
+        description = "KeyCloak Yokudlela",
         flows = @OAuthFlows(
-                implicit = @OAuthFlow(authorizationUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/protocol/openid-connect/auth?client_id=account&redirect_uri=http://172.17.0.1:8080/table/swagger-ui/oauth2-redirect.html&response_type=code&scope=openid") 
+                implicit = @OAuthFlow(authorizationUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/protocol/openid-connect/auth"
+                        + "?client_id=account"
+                        + "&redirect_uri=http://172.17.0.1:8080/table/swagger-ui/oauth2-redirect.html"
+                        + "&response_type=code"
+                        + "&scope=openid")
             )
         )
 
-@SecurityScheme(        
-        bearerFormat = "JWT",
+@SecurityScheme(
         type = SecuritySchemeType.APIKEY, 
         name = "apikey",          
         paramName = "Authorization",          
-        description = "KeyCloak Alteo",
-        in = SecuritySchemeIn.HEADER,
-        openIdConnectUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/.well-known/openid-configuration"        
-        )
+        description = "KeyCloak Yokudlela",
+        in = SecuritySchemeIn.HEADER)
 
 
 @SecurityScheme(        
         type = SecuritySchemeType.OPENIDCONNECT, 
         name = "openid",          
-        description = "KeyCloak Alteo",
+        description = "KeyCloak Yokudlela",
         openIdConnectUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/.well-known/openid-configuration"        
         )
 
 @OpenAPIDefinition(
         servers = { 
             @Server(url = "http://172.17.0.1:8080/table", description = "local dev"),
-            @Server(url = "https://www.yokudlela.hu:1980//table", description = "test") }, 
-        security ={
-            @SecurityRequirement(name = "apikey", scopes ={"table"} ),
-            @SecurityRequirement(name = "openid", scopes ={"table"} )
-        },
+            @Server(url = "https://www.yokudlela.hu:1980//table", description = "test") },
         
         info = @Info(
                 title = "Yokudlela Table API", 
@@ -90,14 +83,10 @@ public class TableApplication {
     @Bean
     	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
-            
-
-                    @Override
+			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**");
 			}
 		};
 	}
-        
-
 }
