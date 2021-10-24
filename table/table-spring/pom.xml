@@ -22,24 +22,6 @@
     </dependencyManagement>
     
     <dependencies>
-<!-- Spring -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.5.4</version>
-        </dependency>
-<!-- Spring openAPI-->
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.10</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>1.5.10</version>
-        </dependency>
-
 <!-- tools -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -54,6 +36,20 @@
             <type>jar</type>
         </dependency>
         
+<!-- Spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.5.4</version>
+        </dependency>
+        
+<!-- Spring openAPI-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.5.10</version>
+        </dependency>
+        
 <!-- JSON -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -64,14 +60,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.10.0</version>
-        </dependency>
-        
+        </dependency>        
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.10.0</version>
-        </dependency>
-                
+        </dependency>                
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
@@ -82,36 +76,20 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-starter</artifactId>
-            <version>12.0.4</version>
         </dependency>        
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.1</version>
-        </dependency>
-
 
 <!-- Validáció -->
+<!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
             <version>2.3.7.RELEASE</version>
         </dependency>
+-->                
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
             <version>2.0.2</version>
-            <type>jar</type>
         </dependency>
     
 
@@ -151,7 +129,7 @@
                                 </assembly>
                                 <tags>
                                     <tag>table-latest</tag>
-                                    <tag>table-5.0</tag>
+                                    <tag>table-6.0</tag>
                                 </tags>
                                 <assembly>
                                     <inline>
@@ -168,8 +146,8 @@
                         </image>
                     </images>
                     <authConfig>
-                        <username>user</username>
-                        <password>password</password>
+                        <username>krisztian4dsoft</username>
+                        <password>jkqxl2bhqptg</password>
                     </authConfig>
                 </configuration>
             

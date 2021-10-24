@@ -30,9 +30,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         name = "oauth2",          
         description = "KeyCloak Yokudlela",
         flows = @OAuthFlows(
-                implicit = @OAuthFlow(authorizationUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/protocol/openid-connect/auth"
+                implicit = @OAuthFlow(authorizationUrl = "http://yokudlela:6080/auth/realms/yokudlela/protocol/openid-connect/auth"
                         + "?client_id=account"
-                        + "&redirect_uri=http://172.17.0.1:8080/table/swagger-ui/oauth2-redirect.html"
+                        + "&redirect_uri=http://yokudlela:8080/table/swagger-ui/oauth2-redirect.html"
                         + "&response_type=code"
                         + "&scope=openid")
             )
@@ -50,13 +50,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         type = SecuritySchemeType.OPENIDCONNECT, 
         name = "openid",          
         description = "KeyCloak Yokudlela",
-        openIdConnectUrl = "http://172.17.0.1:6080/auth/realms/yokudlela/.well-known/openid-configuration"        
+        openIdConnectUrl = "http://yokudlela:6080/auth/realms/yokudlela/.well-known/openid-configuration"        
         )
 
 @OpenAPIDefinition(
         servers = { 
-            @Server(url = "http://172.17.0.1:8080/table", description = "local dev"),
-            @Server(url = "https://www.yokudlela.hu:1980//table", description = "test") },
+            @Server(url = "http://yokudlela:8080/table", description = "local dev") },
         
         info = @Info(
                 title = "Yokudlela Table API", 
