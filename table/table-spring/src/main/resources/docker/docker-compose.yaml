@@ -1,11 +1,11 @@
 version: '3'
 services:
-  table:
-    image: krisztian4dsoft/yokudlela:table-6.0
-    environment:
-      - KEYCLOAK_AUTH_SERVER_URL=http://yokudlela:6080/auth
-    ports:
-      - 8080:8080
+#  table:
+#    image: krisztian4dsoft/yokudlela:table-6.0
+#    environment:
+#      - KEYCLOAK_AUTH_SERVER_URL=http://yokudlela:6080/auth
+#    ports:
+#      - 8080:8080
 
   db:
     image: mariadb:10.1.34
