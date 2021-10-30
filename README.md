@@ -2,32 +2,32 @@
 Java Microservice projekt example.
 
 ## Task
-- Valósítsd meg hogy a REST API-d egys funkciói csak megadott jogosultsággal rendelkező felhasználók számára legyen elérhető.
-- https://youtu.be/nhdvTtvSkZk
+- Validáld a beérkező adatokat
+- 
 
 ## Important information
-- https://datatracker.ietf.org/doc/html/rfc6749
-- https://openid.net/developers/specs/
-- https://www.baeldung.com/spring-boot-keycloak
-- https://www.baeldung.com/keycloak-custom-user-attributes
+- https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/index.html?javax/validation/package-summary.html
+- 
 - 
 ## Maven
 ```
-<dependency> 
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-spring-boot-starter</artifactId>
- </dependency>
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-validation</artifactId>
+   <version>2.3.7.RELEASE</version>
+</dependency>
+               
+<dependency>
+   <groupId>jakarta.validation</groupId>
+   <artifactId>jakarta.validation-api</artifactId>
+   <version>2.0.2</version>
+</dependency>
 ```
-## Important information
-https://tools.ietf.org/html/rfc2616
-https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration
-https://www.baeldung.com/spring-rest-openapi-documentation
-https://www.baeldung.com/spring-cors
 
 
 ### Spring
 Principal
 
-### Keycloak
+### Validation API
 KeycloakPrincipal
 AccessToken
