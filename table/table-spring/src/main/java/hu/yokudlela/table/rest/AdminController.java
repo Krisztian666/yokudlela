@@ -1,6 +1,7 @@
 package hu.yokudlela.table.rest;
 
 import hu.yokudlela.table.datamodel.Table;
+import hu.yokudlela.table.service.BusinessException;
 import hu.yokudlela.table.spring.ApiError;
 import hu.yokudlela.table.store.TableRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -43,7 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class AdminController {
 
-    @Autowired
+    @Autowired(required = true)
     TableRepository tableService;
 
     @ApiResponses(value = { 
@@ -67,7 +68,7 @@ public class AdminController {
         @Size(min=2, max = 10, message = "error.table.name.short_or_long")
         @Pattern(regexp = "^[A-Z][a-zA-Z0-9]+$", message = "error.table.name.pattern_is_bad")
         String pId) throws Exception {
-        return tableService.getByName(pId);
+        return tableService.findByName(pId);
     }
     
 
@@ -88,7 +89,7 @@ public class AdminController {
         @Parameter(description = "Asztal státusz", example = "true")
         @Pattern(regexp = "^(true|false)")
         @PathVariable(name = "state") String pActive) throws Exception {
-        return tableService.getByAvailable(Boolean.valueOf(pActive));
+        return tableService.findByAvailable(Boolean.valueOf(pActive));
     }
 
     @ApiResponses(value = { 
@@ -122,7 +123,7 @@ public class AdminController {
         AccessToken token = kPrincipal.getKeycloakSecurityContext().getToken();
         Access customClaims = token.getResourceAccess("account");
         System.out.println("ROLES:"+customClaims.getRoles());
-        tableService.add(pData);
+        tableService.save(pData);
         return pData;
     }
 
@@ -152,7 +153,13 @@ public class AdminController {
         @Size(min=2, max = 10, message = "error.table.name.short_or_long")
         @Pattern(regexp = "^[A-Z][a-zA-Z0-9]+$", message = "error.table.name.pattern_is_bad")        
                 String pId) {
-        tableService.delete(pId);
+        Table tmp = tableService.findByName(pId);
+        if(tmp!=null){
+            tableService.delete(tmp);
+        }
+        else{
+            throw new BusinessException("table.notexist");
+        }
     }
 
     public void deleteImageUrl(@PathVariable(name = "name") String pId) {
@@ -193,7 +200,14 @@ public class AdminController {
         @Size(min=2, max = 10, message = "error.table.name.short_or_long")
         @Pattern(regexp = "^[A-Z][a-zA-Z0-9]+$", message = "error.table.name.pattern_is_bad")
         @PathVariable(name = "name", required = true) String pId) {
-        tableService.enableByName(pId);
+        Table tmp = tableService.findByName(pId);
+        if(tmp!=null){
+            tmp.setAvailable(true);
+            tableService.delete(tmp);
+        }
+        else{
+            throw new BusinessException("table.notexist");
+        }
     }
 
     @ApiResponses(value = { 
@@ -228,7 +242,14 @@ public class AdminController {
         @Size(min=2, max = 10, message = "error.table.name.short_or_long")
         @Pattern(regexp = "^[A-Z][a-zA-Z0-9]+$", message = "error.table.name.pattern_is_bad")
         @PathVariable(name = "name", required = true) String pId) {
-        tableService.disableByName(pId);
+        Table tmp = tableService.findByName(pId);
+        if(tmp!=null){
+            tmp.setAvailable(false);
+            tableService.delete(tmp);
+        }
+        else{
+            throw new BusinessException("table.notexist");
+        }
     }
 
     
@@ -261,7 +282,7 @@ public class AdminController {
             @Valid
         @Parameter(description = "Asztal", required = true) 
         @RequestBody(required = true) Table pTable) throws IllegalAccessException, InvocationTargetException {
-        tableService.modify(pTable);
+        tableService.save(pTable);
         return pTable;
     }
     

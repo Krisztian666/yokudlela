@@ -1,10 +1,21 @@
 package hu.yokudlela.table.datamodel;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
+import java.util.UUID;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +25,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 /**
  * Egy foglalás
  * @author (K)risztián
@@ -22,7 +36,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode()
 @Schema(description = "Foglalás")
+@Entity
+@javax.persistence.Table(name = "reservation")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Reservation {
+    
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator",
+        parameters = {
+            @Parameter(
+                name = "uuid_gen_strategy_class",
+                value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+            )
+        }
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private String id;
+    
     @Schema(description = "Foglaló neve")
     @NotBlank(message = "error.reservation.name.notset")
     @NotNull(message = "error.reservation.name.notset")
@@ -45,6 +78,8 @@ public class Reservation {
     private LocalDateTime end;
     
     @Schema(description = "Lefoglalt asztal")
+    @ManyToOne(fetch = FetchType.LAZY )
+    @JoinColumn(name="table_id", nullable=false)    
     private Table table;
     
     @Schema(description = "Személyek száma")

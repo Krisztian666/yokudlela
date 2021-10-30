@@ -6,6 +6,7 @@ import hu.yokudlela.table.store.ReservationRepository;
 import hu.yokudlela.table.store.TableRepository;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,13 +15,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FreeTableService {
-    TableRepository tRep = new TableRepository();
-    ReservationRepository rRep = new ReservationRepository();
+    @Autowired
+    TableRepository tRep;
+    @Autowired
+    ReservationRepository rRep;
         
     public List<Table> getAllFree(LocalDateTime pBegin, LocalDateTime pEnd){
-        List<Table> allAvailable = tRep.getByAvailable(true);
-        List<Reservation> allRes = rRep.getBetweenBeginAndEnd(LocalDateTime.MIN, LocalDateTime.MAX);
-        
+        List<Table> allAvailable = tRep.findByAvailable(true);
+        List<Reservation> allRes = rRep.findByBeginBetween(pBegin, pEnd);        
         allRes.stream().forEach(e -> allAvailable.remove(e.getTable()));
         return allAvailable;
     }

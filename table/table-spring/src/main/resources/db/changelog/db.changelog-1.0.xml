@@ -1,0 +1,88 @@
+<db:databaseChangeLog xmlns:db="http://www.liquibase.org/xml/ns/dbchangelog"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+    <db:changeSet id="create-table-from-object" author="krisztian">
+        <db:createTable tableName="rtable">
+            <db:column name="id" type="BIGINT"></db:column>
+            <db:column name="name" type="varchar(255)"  ></db:column>
+            <db:column name="available" type="boolean"  ></db:column>
+            <db:column name="capacity" type="int"  ></db:column>            
+            <db:column name="create" type="timestamp"  ></db:column>
+            <db:column name="lastmodify" type="timestamp"  ></db:column>            
+        </db:createTable>
+        <db:createIndex tableName="rtable" indexName="rtable-name">
+            <db:column name="name"></db:column>
+        </db:createIndex>
+        <db:createIndex tableName="rtable" indexName="table-id">
+            <db:column name="id"></db:column>
+        </db:createIndex>
+        
+        <db:createTable tableName="reservation">
+            <db:column name="id" type="varchar(255)"  >
+                <db:constraints nullable="false"/>                
+            </db:column>
+            <db:column name="table_id" type="BIGINT"></db:column>
+            <db:column name="name" type="varchar(255)"  ></db:column>
+            <db:column name="contact" type="varchar(255)"  ></db:column>
+            <db:column name="begin" type="timestamp"  ></db:column>
+            <db:column name="end" type="timestamp"  ></db:column>
+            <db:column name="person" type="int"  ></db:column>     
+            <db:column name="create" type="timestamp"  ></db:column>
+            <db:column name="lastmodify" type="timestamp"  ></db:column>                                  
+        </db:createTable>
+        <db:createIndex tableName="reservation" indexName="reservation-id">
+            <db:column name="id"></db:column>
+        </db:createIndex>
+
+        <db:createTable tableName="tableimage">
+            <db:column name="id" type="varchar(255)"  >
+                <db:constraints nullable="false"/>                                
+            </db:column>
+            <db:column name="create" type="timestamp"  ></db:column>
+            <db:column name="lastmodify" type="timestamp"  ></db:column>            
+            <db:column name="url" type="varchar(255)"  ></db:column>
+        </db:createTable>
+    </db:changeSet>
+    
+    <db:changeSet id="hibernate_sequences" author="krisztian">
+        <db:createTable tableName="hibernate_sequences">
+            <db:column name="sequence_name" type="varchar(255)"  ></db:column>
+            <db:column name="next_val" type="BIGINT"  ></db:column>                      
+        </db:createTable>
+    </db:changeSet>
+    
+    <db:changeSet id="init-data" author="krisztian">
+        <db:preConditions onFail="MARK_RAN">
+            <db:sqlCheck expectedResult="0">
+                SELECT count(0) FROM rtable WHERE name='A1'
+            </db:sqlCheck>
+        </db:preConditions>        
+        <db:insert tableName="rtable">
+            <db:column name="id" value="1"></db:column>
+            <db:column name="name" value="A1"></db:column>
+            <db:column name="available" valueBoolean="true"></db:column>
+            <db:column name="capacity" value="4"></db:column>
+        </db:insert>
+        <db:insert tableName="rtable">
+            <db:column name="id" value="2"></db:column>
+            <db:column name="name" value="A2"></db:column>
+            <db:column name="available" valueBoolean="true"></db:column>
+            <db:column name="capacity" value="6"></db:column>
+        </db:insert>
+        <db:insert tableName="rtable">
+            <db:column name="id" value="3"></db:column>
+            <db:column name="name" value="A3"></db:column>
+            <db:column name="available" valueBoolean="true"></db:column>
+            <db:column name="capacity" value="10"></db:column>
+        </db:insert>
+                <db:insert tableName="hibernate_sequences">
+            <db:column name="sequence_name" value="default"></db:column>
+            <db:column name="next_val" value="3"></db:column>
+        </db:insert>
+
+    </db:changeSet>
+    
+    
+    
+        
+</db:databaseChangeLog>

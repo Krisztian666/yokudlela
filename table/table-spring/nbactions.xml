@@ -19,4 +19,29 @@
                 <goal>fabric8:push</goal>
             </goals>
         </action>
+        <action>
+            <actionName>CUSTOM-liquibase</actionName>
+            <displayName>liquibase</displayName>
+            <goals>
+                <goal>liquibase:update</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-dbcreate</actionName>
+            <displayName>dbcreate</displayName>
+            <goals>
+                <goal>liquibase:dropAll</goal>
+                <goal>liquibase:update</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-run</actionName>
+            <displayName>run</displayName>
+            <goals>
+                <goal>spring-boot:run</goal>
+            </goals>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </action>
     </actions>

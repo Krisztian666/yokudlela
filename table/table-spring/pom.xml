@@ -22,7 +22,7 @@
     </dependencyManagement>
     
     <dependencies>
-<!-- tools -->
+        <!-- tools -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -36,21 +36,33 @@
             <type>jar</type>
         </dependency>
         
-<!-- Spring -->
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>2.5.4</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
-<!-- Spring openAPI-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-undertow</artifactId>
+            <version>2.3.7.RELEASE</version>            
+        </dependency>
+        
+        <!-- Spring openAPI-->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.5.10</version>
         </dependency>
         
-<!-- JSON -->
+        <!-- JSON -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -72,13 +84,13 @@
             <version>2.10.0</version>
         </dependency>    
     
-<!-- IAM & JWT -->    
+        <!-- IAM & JWT -->    
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-starter</artifactId>
         </dependency>        
 
-<!-- Validáció -->
+        <!-- Validáció -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -91,8 +103,32 @@
             <artifactId>jakarta.validation-api</artifactId>
             <version>2.0.2</version>
         </dependency>
-    
 
+        <!-- Adatbázis kezelés -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>2.3.7.RELEASE</version>
+            
+        </dependency> 
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>5.3.12</version>
+        </dependency>  
+        
+       
+     
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.49</version>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>4.2.2</version>
+        </dependency>
     </dependencies>
     
     <build>
@@ -129,7 +165,7 @@
                                 </assembly>
                                 <tags>
                                     <tag>table-latest</tag>
-                                    <tag>table-6.0</tag>
+                                    <tag>table-7.0</tag>
                                 </tags>
                                 <assembly>
                                     <inline>
@@ -147,11 +183,63 @@
                     </images>
                     <authConfig>
                         <username>krisztian4dsoft</username>
-                        <password>jkqxl2bhqptg</password>
+                        <password>valami</password>
                     </authConfig>
-                </configuration>
-            
+                </configuration>            
             </plugin>
+            
+            <plugin>
+                <groupId>org.liquibase</groupId>  
+                <artifactId>liquibase-maven-plugin</artifactId>  
+                <version>4.2.2</version>  
+                <configuration>
+                    <propertyFile>src/main/resources/db/liquibase.properties</propertyFile>                             
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>disable-run</id>
+                        <phase>spring-boot:run</phase>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>disable-install</id>
+                        <phase>install</phase>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>disable-clean</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>disable-package</id>
+                        <phase>package</phase>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-schema</id>
+                        <phase>liquibase:update</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>                    
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.49</version>
+                    </dependency>
+                </dependencies>  
+            </plugin>            
         </plugins>
     </build>
     

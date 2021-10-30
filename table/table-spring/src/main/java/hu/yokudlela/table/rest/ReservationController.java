@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.validation.Valid;
-import javax.validation.constraints.Future;
-import javax.validation.constraints.FutureOrPresent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
@@ -52,7 +50,7 @@ public class ReservationController {
     public List<Reservation> getReservations(
                 @Parameter(description = "Lekérdezés kezdete", required = true) @RequestParam(name = "start", required = true) String pBegin, 
                 @Parameter(description = "Lekérdezés vége", required = true) @RequestParam(name = "stop", required = true) String pEnd){
-        return service.getBetweenBeginAndEnd(
+        return service.findByBeginBetween(
             DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(pBegin, LocalDateTime::from),
             DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(pEnd, LocalDateTime::from));
     }
@@ -84,6 +82,6 @@ public class ReservationController {
             @Valid
             @Parameter(description = "Foglalás", required = true) 
             @RequestBody(required = true) Reservation pData) throws Exception{
-         service.add(pData);
+         service.save(pData);
     }
 }
