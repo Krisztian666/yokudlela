@@ -56,8 +56,6 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
     }
     
 
-  
-    
     
    @ResponseBody
    @Override

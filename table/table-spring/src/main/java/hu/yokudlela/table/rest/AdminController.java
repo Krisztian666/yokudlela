@@ -24,7 +24,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-//import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +40,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController()
 @RequestMapping(path = "/admin")
-//@Validated
+@Validated
 public class AdminController {
 
     @Autowired
@@ -81,15 +81,14 @@ public class AdminController {
 	@ApiResponse(responseCode = "500", description = "Sikertelen lekérdezés", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = ApiError.class)) })            
-
     })
     @Operation(summary = "Asztalok lekérdezés státusz alapján")
     @GetMapping(path = "/getbystate/{state}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Table> getByState(
         @Parameter(description = "Asztal státusz", example = "true")
-        @Pattern(regexp = "true|false", flags = Pattern.Flag.CASE_INSENSITIVE)
-        @PathVariable(name = "state") Boolean pActive) throws Exception {
-        return tableService.getByAvailable(pActive);
+        @Pattern(regexp = "^(true|false)")
+        @PathVariable(name = "state") String pActive) throws Exception {
+        return tableService.getByAvailable(Boolean.valueOf(pActive));
     }
 
     @ApiResponses(value = { 
