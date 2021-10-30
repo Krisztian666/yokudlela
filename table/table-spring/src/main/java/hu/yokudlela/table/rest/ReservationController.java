@@ -14,8 +14,12 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.FutureOrPresent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController()
 @RequestMapping(path = "/reservation")
+@Validated
 public class ReservationController {
 
     @Autowired
@@ -60,9 +65,10 @@ public class ReservationController {
     @Operation(summary = "Szabad asztalok lekérdezése")    
     @GetMapping(path = "/free", produces = MediaType.APPLICATION_JSON_VALUE)    
     public List<Table> getFree(
+            
                 @Parameter(description = "Lekérdezés kezdete", required = true,  example = "2021-12-03T10:15:30" ) @RequestParam(name = "start", required = true) String pBegin, 
                 @Parameter(description = "Lekérdezés vége", required = true, example = "2021-12-03T10:15:30") @RequestParam(name = "stop", required = true) String pEnd){
-   
+           
         return free.getAllFree(
             DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(pBegin, LocalDateTime::from),
             DateTimeFormatter.ISO_LOCAL_DATE_TIME.parse(pEnd, LocalDateTime::from));
@@ -74,7 +80,10 @@ public class ReservationController {
     })
     @Operation(summary = "Asztal foglalás")    
     @PostMapping(path = "/save")
-    public void save(@Parameter(description = "Foglalás", required = true) @RequestBody(required = true) Reservation pData) throws Exception{
+    public void save(
+            @Valid
+            @Parameter(description = "Foglalás", required = true) 
+            @RequestBody(required = true) Reservation pData) throws Exception{
          service.add(pData);
     }
 }
