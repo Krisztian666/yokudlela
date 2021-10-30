@@ -26,8 +26,53 @@ Java Microservice projekt example.
 
 
 ### Spring
-Principal
+- @Validated
+- @ControllerAdvice
+- @ExceptionHandle
+- ResponseEntityExceptionHandler
 
 ### Validation API
-KeycloakPrincipal
-AccessToken
+- @AssertFalse
+- @AssertFalse.List
+- @AssertTrue
+- @AssertTrue.List
+- @DecimalMax
+- @DecimalMax.List
+- @DecimalMin
+- @DecimalMin.List
+- @Digits
+- @Digits.List
+- @Email
+- @Email.List
+- @Future
+- @Future.List
+- @FutureOrPresent
+- @FutureOrPresent.List
+- @Max
+- @Max.List
+- @Min
+- @Min.List
+- @Negative
+- @Negative.List
+- @NegativeOrZero
+- @NegativeOrZero.List
+- @NotBlank
+- @NotBlank.List
+- @NotEmpty
+- @NotEmpty.List
+- @NotNull
+- @NotNull.List
+- @Null
+- @Null.List
+- @Past
+- @Past.List
+- @PastOrPresent
+- @PastOrPresent.List
+- @Pattern
+- @Pattern.List
+- @Positive
+- @Positive.List
+- @PositiveOrZero
+- @PositiveOrZero.List
+- @Size
+- @Size.List
