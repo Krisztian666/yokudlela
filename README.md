@@ -3,12 +3,11 @@ Java Microservice projekt example.
 
 ## Task
 - Validáld a beérkező adatokat
-- 
+- https://youtu.be/oJO53Ua8PgQ
 
 ## Important information
 - https://docs.jboss.org/hibernate/beanvalidation/spec/2.0/api/index.html?javax/validation/package-summary.html
-- 
-- 
+
 ## Maven
 ```
 <dependency>
