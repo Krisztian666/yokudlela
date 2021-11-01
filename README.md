@@ -124,17 +124,22 @@ Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összeka
 ### Validáció és hibakezelés
   https://github.com/Krisztian666/yokudlela/tree/06-spring-validation
 ## Relációs Adatbázis kezelés
-### JPA, SpringData
-### Adatbázis tartalmak verziókezelés
+### JPA, SpringData és Liquibase
+  https://github.com/Krisztian666/yokudlela/tree/07-spring-database
 ## Cache
 ### Redish
-### NoSQL(MongoDB)
-## Szolgáltatások összekapcsolása
-### Közvetlen áthívások
-### RabitMQ
-### Kafka
+  https://github.com/Krisztian666/yokudlela/tree/08-spring-redis
+## Központosított konfiguráció kezelés
+
 ## Log
 ### SLF4J
 ### Graylog, ElasticSearch
 
+## Szolgáltatások összekapcsolása
+### Közvetlen áthívások
+### RabitMQ
+### Kafka
+
+## Service Registry
+### Eureka
 
