@@ -127,7 +127,7 @@ Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összeka
 ### JPA, SpringData és Liquibase
   https://github.com/Krisztian666/yokudlela/tree/07-spring-database
 ## Cache
-### Redish
+### Redis
   https://github.com/Krisztian666/yokudlela/tree/08-spring-redis
 ## Központosított konfiguráció kezelés
 
