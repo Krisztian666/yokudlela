@@ -7,6 +7,7 @@ import hu.yokudlela.table.store.TableRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +20,8 @@ public class FreeTableService {
     TableRepository tRep;
     @Autowired
     ReservationRepository rRep;
-        
+    
+//    @Cacheable(cacheNames = "table", key = "#root.methodName")    
     public List<Table> getAllFree(LocalDateTime pBegin, LocalDateTime pEnd){
         List<Table> allAvailable = tRep.findByAvailable(true);
         List<Reservation> allRes = rRep.findByBeginBetween(pBegin, pEnd);        

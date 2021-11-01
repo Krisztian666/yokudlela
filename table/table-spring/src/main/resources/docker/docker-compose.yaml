@@ -52,3 +52,7 @@ services:
          condition: service_healthy
     links: 
         - db
+  cache:
+    image: redis:6.2.6
+    ports:
+      - "6379:6379"

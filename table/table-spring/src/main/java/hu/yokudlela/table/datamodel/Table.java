@@ -3,6 +3,7 @@ package hu.yokudlela.table.datamodel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -32,7 +33,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @javax.persistence.Table(name = "rtable")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Table {
+public class Table implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
