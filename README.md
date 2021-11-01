@@ -2,32 +2,31 @@
 Java Microservice projekt example.
 
 ## Task
-- Valósítsd meg hogy a REST API-d egys funkciói csak megadott jogosultsággal rendelkező felhasználók számára legyen elérhető.
-- https://youtu.be/nhdvTtvSkZk
+- Cache-eld alkalmazásodban a ritkán változó, de sokszor használandó metódusaid visszatérési értékét. 
+- https://youtu.be/i06v9Bo0gD4
 
 ## Important information
-- https://datatracker.ietf.org/doc/html/rfc6749
-- https://openid.net/developers/specs/
-- https://www.baeldung.com/spring-boot-keycloak
-- https://www.baeldung.com/keycloak-custom-user-attributes
+- https://redis.io/
 - 
 ## Maven
 ```
-<dependency> 
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-spring-boot-starter</artifactId>
- </dependency>
+            <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.7.0</version>
+        </dependency>
 ```
-## Important information
-https://tools.ietf.org/html/rfc2616
-https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration
-https://www.baeldung.com/spring-rest-openapi-documentation
-https://www.baeldung.com/spring-cors
-
 
 ### Spring
-Principal
+@EnableCaching
+@Caching
+@CacheEvict
+@CachePut
+@Cacheable
+    
 
-### Keycloak
-KeycloakPrincipal
-AccessToken
+
