@@ -18,16 +18,11 @@ Java Microservice projekt example.
             <artifactId>keycloak-spring-boot-starter</artifactId>
  </dependency>
 ```
-## Important information
-https://tools.ietf.org/html/rfc2616
-https://www.baeldung.com/building-a-restful-web-service-with-spring-and-java-based-configuration
-https://www.baeldung.com/spring-rest-openapi-documentation
-https://www.baeldung.com/spring-cors
 
 
 ### Spring
-Principal
+- Principal
 
 ### Keycloak
-KeycloakPrincipal
-AccessToken
+- KeycloakPrincipal
+- AccessToken
