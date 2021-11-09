@@ -1,5 +1,7 @@
 package hu.yokudlela.table.spring;
 
+import hu.yokudlela.table.utils.request.RequestBean;
+import hu.yokudlela.table.utils.request.UserNameInjectInterceptor;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -10,6 +12,7 @@ import io.swagger.v3.oas.annotations.security.OAuthFlow;
 import io.swagger.v3.oas.annotations.security.OAuthFlows;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,9 +20,14 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -72,10 +80,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 @EnableWebMvc
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "hu.yokudlela.table")
+@ComponentScan(basePackages = {
+    "hu.yokudlela.table.service",
+    "hu.yokudlela.table.rest",
+    "hu.yokudlela.table.utils.request",
+    "hu.yokudlela.table.utils.logging"
+})
 @EnableJpaRepositories("hu.yokudlela.table.store")
 @EntityScan("hu.yokudlela.table.datamodel")
 @SpringBootApplication
+
 public class TableApplication {
     public static void main(String[] args) {
         SpringApplication.run(TableApplication.class, args);
@@ -85,12 +99,25 @@ public class TableApplication {
     @Bean
     	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
+                    @Autowired
+                    UserNameInjectInterceptor customInterceptor;
+                    
+                    @Override
+                    public void addInterceptors(InterceptorRegistry registry) {
+                        registry.addInterceptor(customInterceptor);
+                    }
+		
+                    @Override
+        		public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**");
 			}
 		};
 	}
         
-     
+    @Bean
+    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public RequestBean requestBean() {
+        return new RequestBean();
+    }
+
 }

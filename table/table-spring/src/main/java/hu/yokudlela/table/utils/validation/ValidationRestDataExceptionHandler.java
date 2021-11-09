@@ -1,4 +1,4 @@
-package hu.yokudlela.table.spring;
+package hu.yokudlela.table.utils.validation;
 
 import hu.yokudlela.table.service.BusinessException;
 import javax.servlet.http.HttpServletRequest;

@@ -2,7 +2,7 @@ package hu.yokudlela.table.rest;
 
 import hu.yokudlela.table.datamodel.Table;
 import hu.yokudlela.table.service.BusinessException;
-import hu.yokudlela.table.spring.ApiError;
+import hu.yokudlela.table.utils.validation.ApiError;
 import hu.yokudlela.table.store.TableRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -1,4 +1,4 @@
-package hu.yokudlela.table.spring;
+package hu.yokudlela.table.utils.validation;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
