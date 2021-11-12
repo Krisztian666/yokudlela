@@ -18,9 +18,9 @@ public class LogExample {
 
     public static void main(String[] args) {
         LogThread lt = new LogThread(0);
+        lt.start();
         for(int i=0;i<10;i++){
             lt.index = i;
-            lt.run();
         }
     }
     
@@ -37,9 +37,10 @@ class LogThread extends Thread{
     @Override
     public void run() {
         try {
-            MDC.put("index", ""+index);
+            MDC.put("index", ""+index);            
             sleep(1000);
             log.info("---"+index);
+            MDC.clear();
         } catch (InterruptedException ex) {
             Logger.getLogger(LogThread.class.getName()).log(Level.SEVERE, null, ex);
         }
