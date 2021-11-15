@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package hu.yokudlela.table.utils.logging;
+package hu.yokudlela.table.utils.request;
 
 import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.argument.StructuredArguments;
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 @RestControllerAdvice
 @Slf4j
 @Component
-public class CustomRequestBodyAdviceAdapter implements ResponseBodyAdvice {
+public class ResponseBodyAdviceLogAdapter implements ResponseBodyAdvice {
 @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
         return true;//returnType.getParameterType().isAssignableFrom(ResponseEntity.class);
