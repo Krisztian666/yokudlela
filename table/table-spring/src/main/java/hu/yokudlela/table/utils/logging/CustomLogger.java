@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import static net.logstash.logback.argument.StructuredArguments.keyValue;
+
+
 
 @Component
 @Aspect
@@ -48,15 +51,11 @@ public class CustomLogger {
         stopWatch.start();
         Object retVal = proceedingJoinPoint.proceed();
         stopWatch.stop();
-        try{
-            MDC.put("X-B3-TraceId", requestScopedBean.getUuid());
-            MDC.put("X-Span-Export", requestScopedBean.getUser());
-        }
-        catch(Exception e){}
             log.info(
-                String.format("%s execution time: %s ms ",  
-                        getMethodNameWithArgs(proceedingJoinPoint),
-                        stopWatch.getTotalTimeMillis()));                
+                String.format("%s",  
+                        getMethodNameWithArgs(proceedingJoinPoint))
+                    ,keyValue("runningtime", ""+stopWatch.getTotalTimeMillis())
+            );                
         return retVal;
     }
 

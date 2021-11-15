@@ -7,6 +7,11 @@ services:
 #      - SPRING_LIQUIBASE_ENABLED=true
 #    ports:
 #      - 8080:8080
+#logging:
+#      driver: gelf
+#      options:
+#        gelf-address: "udp://sh1a5105.aoffice.local:12201"
+
 
   db:
     image: mariadb:10.1.34
@@ -22,9 +27,9 @@ services:
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
-     - ${PWD}/../../disks/sql:/var/lib/mysql
-     - "${PWD}/init-db/iam.sql:/docker-entrypoint-initdb.d/1.sql:ro"
-     - "${PWD}/init-db/table-service.sql:/docker-entrypoint-initdb.d/2.sql:ro"
+      - ${PWD}/../../disks/sql:/var/lib/mysql
+      - "${PWD}/init-db/iam.sql:/docker-entrypoint-initdb.d/1.sql:ro"
+      - "${PWD}/init-db/table-service.sql:/docker-entrypoint-initdb.d/2.sql:ro"
     healthcheck:  
       test: ["CMD-SHELL", "mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;' || exit 1"]
       interval: 30s
@@ -56,34 +61,64 @@ services:
          condition: service_healthy
     links: 
         - db
+        
+        
+        
+  # MongoDB: https://hub.docker.com/_/mongo/
+    mongo:
+      image: mongo:4.2
+      volumes:     
+          - ${PWD}/../../disks/mongo:/data/db
+#      networks:
+#        - graylog
+    # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/7.10/docker.html
+    elasticsearch:
+      image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+      environment:
+        - http.host=0.0.0.0
+        - transport.host=localhost
+        - network.host=0.0.0.0
+        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      volumes:
+           - ${PWD}/../../disks/elastic:/usr/share/elasticsearch/data
+      ulimits:
+        memlock:
+          soft: -1
+          hard: -1
+      deploy:
+        resources:
+          limits:
+            memory: 1g
+#      networks:
+#        - graylog
 
-  mongo:
-    image: mongo:4.2
-    volumes:
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
-      - ${PWD}/disks/mongodb:/data/db
-
-  # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/7.10/docker.html
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
-    environment:
-      - http.host=0.0.0.0
-      - transport.host=localhost
-      - network.host=0.0.0.0
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    deploy:
-      resources:
-        limits:
-          memory: 1g
-    volumes:
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
-      - ${PWD}/disks/elastic:/usr/share/elasticsearch/data
-    ports:
-      - "9300:9300"
-      - "9200:9200"
+    # Graylog: https://hub.docker.com/r/graylog/graylog/
+    graylog:
+      image: graylog/graylog:4.2
+      environment:
+        # CHANGE ME (must be at least 16 characters)!
+        - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
+        # Password: admin
+        - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+        - GRAYLOG_HTTP_EXTERNAL_URI=http://yokudlela:9000/
+      entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
+#      networks:
+#        - graylog
+#      restart: always
+      depends_on:
+        - mongo
+        - elasticsearch
+      ports:
+        # Graylog web interface and REST API
+        - 9000:9000
+        # Syslog TCP
+        - 1514:1514
+        # Syslog UDP
+        - 1514:1514/udp
+        # GELF TCP
+        - 12201:12201
+        # GELF UDP
+        - 12201:12201/udp
+  networks:
+    graylog:
+      driver: bridge

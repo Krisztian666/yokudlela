@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <configuration>
+    <conversionRule conversionWord="requestId" converterClass="hu.yokudlela.table.utils.logging.RequestIdMessageConverter" />
+    <conversionRule conversionWord="userId" converterClass="hu.yokudlela.table.utils.logging.UserIdMessageConverter" />
+
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <!-- Don't forget to set "spring.application.name" in application.yml -->
@@ -14,16 +16,19 @@
             <level>DEBUG</level>
         </filter>
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+        
             <providers>
-                <!-- Log all StructuredArgument instances -->
-                <arguments/>
+
+                <!-- Log all StructuredArgu-ment instances -->
+                <arguments>
+                 
+                </arguments>
                 <!-- Log all MDC fields except the ones from Sleuth - we add them below
-                     under cleaned up names -->
+                under cleaned up names -->
                 <mdc>
-                    <excludeMdcKeyName>X-B3-TraceId</excludeMdcKeyName>
-                    <excludeMdcKeyName>X-B3-SpanId</excludeMdcKeyName>
-                    <excludeMdcKeyName>X-B3-ParentSpanId</excludeMdcKeyName>
-                    <excludeMdcKeyName>X-Span-Export</excludeMdcKeyName>
+                    <excludeMdcKeyName>application</excludeMdcKeyName>
+                    <excludeMdcKeyName>host</excludeMdcKeyName>
+                    <excludeMdcKeyName>version</excludeMdcKeyName>
                 </mdc>
                 <!-- Include Exception stack traces -->
                 <stackTrace/>
@@ -34,19 +39,21 @@
                 <pattern>
                     <pattern>
                         {
-                            "severity": "%level",
-                            "logger": "%logger",
-                            "message": "%message",
-                            "thread": "%thread",
-                            "trace": "%X{X-B3-TraceId:-}",
-                            "span": "%X{X-B3-SpanId:-}",
-                            "parent": "%X{X-B3-ParentSpanId:-}",
-                            "exportable": "%X{X-Span-Export:-}"
+                        "severity": "%level",
+                        "logger": "%logger",
+                        "message": "%message",
+                        "thread": "%thread",
+                        "request": "%requestId",
+                        "user": "%userId",
+                        "app": "%X{application:-}",
+                        "host": "%X{host:-}",
+                        "version": "%X{version:-}"                  
                         }
                     </pattern>
                 </pattern>
             </providers>
         </encoder>
+        
     </appender>
 
     <!-- Appender to log to file in plain text format -->
