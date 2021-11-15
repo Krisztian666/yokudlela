@@ -1,8 +1,13 @@
 package hu.yokudlela.table.utils.validation;
 
 import hu.yokudlela.table.service.BusinessException;
+import static hu.yokudlela.table.utils.request.RequestFilter.REQUEST_ID;
+import static hu.yokudlela.table.utils.request.RequestFilter.TIME_SPENT;
+import static hu.yokudlela.table.utils.request.RequestFilter.USER_ID;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
+import net.logstash.logback.argument.StructuredArguments;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,11 +22,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+
+import static hu.yokudlela.table.utils.request.RequestFilter.REQUEST_ID;
+import static hu.yokudlela.table.utils.request.RequestFilter.USER_ID;
+
 /**
  * @author user
  */
 @ControllerAdvice
 @Component
+@Slf4j
 public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Autowired
@@ -29,7 +39,7 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
     
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Object> customHandleNotFound(Exception ex, WebRequest request) {
-        logger.error(ex.getLocalizedMessage(), ex);
+        log.error(ex.getLocalizedMessage(), ex);
        ApiError res = new ApiError(req.getRequestURI(),"error.business");
 
         res.getErrors().add(ex.getMessage());
@@ -37,10 +47,11 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
         return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
-   
+
      @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> HandleConstraintViolation(ConstraintViolationException ex, WebRequest request) {
-        logger.error(ex.getLocalizedMessage(), ex);
+
+        log.error(ex.getLocalizedMessage(), ex);
        ApiError res = new ApiError(req.getRequestURI(),"error.validation");
  /*     
        for(Throwable msg: ex.getSuppressed()){
@@ -61,8 +72,8 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
    @Override
    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                  HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-        logger.error(ex.getLocalizedMessage(), ex);
+    log.error(ex.getLocalizedMessage(), ex);
+        
        ApiError res = new ApiError(req.getRequestURI(),"error.validation");
 
         ex.getBindingResult().getFieldErrors().forEach((FieldError error) -> {

@@ -4,6 +4,7 @@ import hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter;
 import hu.yokudlela.table.utils.request.RequestFilter;
 import hu.yokudlela.table.utils.request.RequestBean;
 import hu.yokudlela.table.utils.request.UserNameInjectInterceptor;
+import hu.yokudlela.table.utils.validation.ValidationRestDataExceptionHandler;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
@@ -24,6 +25,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -90,7 +92,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableJpaRepositories("hu.yokudlela.table.store")
 @EntityScan("hu.yokudlela.table.datamodel")
 @SpringBootApplication
-
+@Import(ValidationRestDataExceptionHandler.class)
 public class TableApplication {
 
     public static void main(String[] args) {
