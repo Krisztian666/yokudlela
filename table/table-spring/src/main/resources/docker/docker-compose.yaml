@@ -1,16 +1,20 @@
 version: '3.8'
 services:
-#  table:
-#    image: krisztian4dsoft/yokudlela:table-7.0
-#    environment:
-#      - KEYCLOAK_AUTH_SERVER_URL=http://yokudlela:6080/auth
-#      - SPRING_LIQUIBASE_ENABLED=true
-#    ports:
-#      - 8080:8080
-#logging:
-#      driver: gelf
-#      options:
-#        gelf-address: "udp://sh1a5105.aoffice.local:12201"
+  table:
+    image: krisztian4dsoft/yokudlela:latest
+    environment:
+      - KEYCLOAK_AUTH_SERVER_URL=http://yokudlela:6080/auth
+      - SPRING_LIQUIBASE_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://yokudlela:3306/service_table?useUnicode=true&characterEncoding=UTF-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    ports:
+      - 8080:8080
+    depends_on:
+        db:
+           condition: service_healthy     
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://yokudlela:12201"
 
 
   db:
@@ -55,60 +59,59 @@ services:
     volumes:
       - "/etc/timezone:/etc/timezone:ro"
       - "/etc/localtime:/etc/localtime:ro"
-      - ${PWD}/realm-export.json:/tmp/example-realm.json
+      - "${PWD}/realm-export.json:/tmp/example-realm.json"
     depends_on:
       db:
          condition: service_healthy
     links: 
         - db
         
-        
-        
+
   # MongoDB: https://hub.docker.com/_/mongo/
-    mongo:
-      image: mongo:4.2
-      volumes:     
-          - ${PWD}/../../disks/mongo:/data/db
+  mongo:
+   image: mongo:4.2
+   volumes:     
+    - ${PWD}/../../disks/mongo:/data/db
 #      networks:
 #        - graylog
     # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/7.10/docker.html
-    elasticsearch:
-      image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
-      environment:
-        - http.host=0.0.0.0
-        - transport.host=localhost
-        - network.host=0.0.0.0
-        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      volumes:
-           - ${PWD}/../../disks/elastic:/usr/share/elasticsearch/data
-      ulimits:
-        memlock:
-          soft: -1
-          hard: -1
-      deploy:
-        resources:
-          limits:
-            memory: 1g
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=localhost
+      - network.host=0.0.0.0
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - ${PWD}/../../disks/elastic:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    deploy:
+      resources:
+        limits:
+          memory: 1g
 #      networks:
 #        - graylog
 
     # Graylog: https://hub.docker.com/r/graylog/graylog/
-    graylog:
-      image: graylog/graylog:4.2
-      environment:
+  graylog:
+    image: graylog/graylog:4.2
+    environment:
         # CHANGE ME (must be at least 16 characters)!
         - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
         # Password: admin
         - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
         - GRAYLOG_HTTP_EXTERNAL_URI=http://yokudlela:9000/
-      entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
+    entrypoint: /usr/bin/tini -- wait-for-it elasticsearch:9200 --  /docker-entrypoint.sh
 #      networks:
 #        - graylog
 #      restart: always
-      depends_on:
+    depends_on:
         - mongo
         - elasticsearch
-      ports:
+    ports:
         # Graylog web interface and REST API
         - 9000:9000
         # Syslog TCP
@@ -119,6 +122,6 @@ services:
         - 12201:12201
         # GELF UDP
         - 12201:12201/udp
-  networks:
-    graylog:
-      driver: bridge
+#  networks:
+#    graylog:
+#      driver: bridge

@@ -35,6 +35,7 @@
                 <timestamp>
                     <timeZone>UTC</timeZone>
                 </timestamp>
+                
                 <!-- Assign logger fields to JSON object -->
                 <pattern>
                     <pattern>
