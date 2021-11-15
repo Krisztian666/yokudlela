@@ -9,6 +9,8 @@
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
     <property name="LOG_FILE" value="${LOG_FILE:-${LOG_PATH:-logs}/${springAppName}}"/>
 
+    
+    
     <!-- Appender to log to console in plain text format -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -19,31 +21,18 @@
         
             <providers>
 
-                <!-- Log all StructuredArgu-ment instances -->
-                <arguments>
-                 
-                </arguments>
-                <!-- Log all MDC fields except the ones from Sleuth - we add them below
-                under cleaned up names -->
-                <mdc>
-                    <excludeMdcKeyName>application</excludeMdcKeyName>
-                    <excludeMdcKeyName>host</excludeMdcKeyName>
-                    <excludeMdcKeyName>version</excludeMdcKeyName>
-                </mdc>
-                <!-- Include Exception stack traces -->
-                <stackTrace/>
+                <contextName>AAA</contextName>
                 <timestamp>
-                    <timeZone>UTC</timeZone>
+                    <fieldName>ts</fieldName>
+                    <timeZone>Europe/Budapest</timeZone>
                 </timestamp>
-                
+                <loggerName>
+                    <fieldName>logger</fieldName>
+                </loggerName>
                 <!-- Assign logger fields to JSON object -->
                 <pattern>
                     <pattern>
                         {
-                        "severity": "%level",
-                        "logger": "%logger",
-                        "message": "%message",
-                        "thread": "%thread",
                         "request": "%requestId",
                         "user": "%userId",
                         "app": "%X{application:-}",
@@ -52,6 +41,38 @@
                         }
                     </pattern>
                 </pattern>
+
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <arguments>
+                    <includeNonStructuredArguments>true</includeNonStructuredArguments>
+                </arguments>
+                <message>
+                    <fieldName>msg</fieldName>
+                </message>        
+                
+                <!-- Log all MDC fields except the ones from Sleuth - we add them below
+                under cleaned up names -->
+                <mdc>
+                    <excludeMdcKeyName>application</excludeMdcKeyName>
+                    <excludeMdcKeyName>host</excludeMdcKeyName>
+                    <excludeMdcKeyName>version</excludeMdcKeyName>
+                </mdc>
+                <callerData>
+                    <classFieldName>class</classFieldName>
+                    <methodFieldName>method</methodFieldName>
+                    <lineFieldName>line</lineFieldName>
+                    <fileFieldName>file</fileFieldName>
+                </callerData>
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+                <!-- Include Exception stack traces -->
+                <stackTrace>
+                    <fieldName>stack</fieldName>
+                </stackTrace>
+                
             </providers>
         </encoder>
         
