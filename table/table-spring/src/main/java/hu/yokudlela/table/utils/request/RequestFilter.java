@@ -48,11 +48,13 @@ public class RequestFilter implements Filter {
 
         chain.doFilter(request, response);
         stopWatch.stop();
-        log.info(
-                "end request", 
+        log.info("", 
+                StructuredArguments.keyValue("state","end of request"),
+                StructuredArguments.keyValue("uri",req.getRequestURI()),
+                StructuredArguments.keyValue("url",req.getRequestURL()),
                 StructuredArguments.keyValue(REQUEST_ID, request.getAttribute(REQUEST_ID)),
                 StructuredArguments.keyValue(USER_ID, request.getAttribute(USER_ID)),
-                StructuredArguments.keyValue(TIME_SPENT, "" + stopWatch.getTotalTimeMillis())
+                StructuredArguments.keyValue(TIME_SPENT, stopWatch.getTotalTimeMillis())
         );
     }
 

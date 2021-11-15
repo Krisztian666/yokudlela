@@ -54,7 +54,7 @@ public class CustomLogger {
             log.info(
                 String.format("%s",  
                         getMethodNameWithArgs(proceedingJoinPoint))
-                    ,keyValue("runningtime", ""+stopWatch.getTotalTimeMillis())
+                    ,keyValue("methodetime", stopWatch.getTotalTimeMillis())
             );                
         return retVal;
     }

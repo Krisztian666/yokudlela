@@ -17,6 +17,7 @@ public class CustomRequestLoggingFilter extends AbstractRequestLoggingFilter{
     @Override
     protected void beforeRequest(HttpServletRequest request, String message) {
         log.info(message,
+                StructuredArguments.keyValue("state","incoming request"),
                 StructuredArguments.keyValue(REQUEST_ID,request.getAttribute(REQUEST_ID)),
                 StructuredArguments.keyValue(USER_ID,request.getAttribute(USER_ID))
         ); 
