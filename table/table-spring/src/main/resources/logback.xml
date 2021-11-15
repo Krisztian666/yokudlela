@@ -21,7 +21,9 @@
         
             <providers>
 
-                <contextName>AAA</contextName>
+                <contextName>
+                    <fieldName>app</fieldName>
+                </contextName>
                 <timestamp>
                     <fieldName>ts</fieldName>
                     <timeZone>Europe/Budapest</timeZone>
