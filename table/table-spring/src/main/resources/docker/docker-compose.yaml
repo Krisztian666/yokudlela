@@ -1,20 +1,20 @@
 version: '3.8'
 services:
-#  table:
-#    image: krisztian4dsoft/yokudlela:latest
-#    environment:
-#      - KEYCLOAK_AUTH_SERVER_URL=http://yokudlela:6080/auth
-#      - SPRING_LIQUIBASE_ENABLED=true
-#      - SPRING_DATASOURCE_URL=jdbc:mysql://yokudlela:3306/service_table?useUnicode=true&characterEncoding=UTF-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-#    ports:
-#      - 8080:8080
-#    depends_on:
-#        db:
-#           condition: service_healthy     
-#    logging:
-#      driver: gelf
-#      options:
-#        gelf-address: "udp://yokudlela:12201"
+  table:
+    image: krisztian4dsoft/yokudlela:latest
+    environment:
+      - KEYCLOAK_AUTH_SERVER_URL=http://yokudlela:6080/auth
+      - SPRING_LIQUIBASE_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:mysql://yokudlela:3306/service_table?useUnicode=true&characterEncoding=UTF-8&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    ports:
+      - 8080:8080
+    depends_on:
+        db:
+           condition: service_healthy     
+    logging:
+      driver: gelf
+      options:
+        gelf-address: "udp://yokudlela:12201"
 
 
   db:

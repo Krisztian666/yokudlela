@@ -35,6 +35,7 @@
                 <pattern>
                     <pattern>
                         {
+                        "severity": "%level",
                         "request": "%requestId",
                         "user": "%userId",
                         "app": "%X{application:-}",
@@ -44,9 +45,6 @@
                     </pattern>
                 </pattern>
 
-                <logLevel>
-                    <fieldName>level</fieldName>
-                </logLevel>
                 <arguments>
                     <includeNonStructuredArguments>true</includeNonStructuredArguments>
                 </arguments>
