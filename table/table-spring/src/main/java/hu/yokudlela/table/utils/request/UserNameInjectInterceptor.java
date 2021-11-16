@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.REQUEST_ID;
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.USER_ID;
 
 /**
  * @author krisztian
@@ -23,18 +25,15 @@ public class UserNameInjectInterceptor implements HandlerInterceptor {
     @Autowired
     RequestBean user;
     
-    @Value("client.default:def") 
-    String defaultClient;
 
     @Override
     public boolean preHandle(HttpServletRequest requestServlet, HttpServletResponse response, Object handler) throws Exception {        
        
         try{
-            user.setRequestId(""+requestServlet.getAttribute(RequestFilter.REQUEST_ID));
-            user.setUser(requestServlet.getUserPrincipal().getName());
-//            user.setClient((requestServlet.getAttribute("client")==null)?defaultClient:requestServlet.getAttribute("client"));
+            user.setRequestId(""+requestServlet.getAttribute(REQUEST_ID));
+            user.setUser(""+requestServlet.getAttribute(USER_ID));
         }
-        catch(Exception e){}     
+        catch(Exception e){log.error(e.getLocalizedMessage(), e);}     
         
         return true;                        
     }

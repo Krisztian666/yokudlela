@@ -1,7 +1,5 @@
 package hu.yokudlela.table.spring;
 
-import hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter;
-import hu.yokudlela.table.utils.request.RequestFilter;
 import hu.yokudlela.table.utils.request.RequestBean;
 import hu.yokudlela.table.utils.request.UserNameInjectInterceptor;
 import hu.yokudlela.table.utils.validation.ValidationRestDataExceptionHandler;
@@ -21,7 +19,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -30,7 +27,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.CommonsRequestLoggingFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -130,7 +126,7 @@ public class TableApplication {
 
         return new ApplicationContextProvider();
     }
-
+/*
     @Bean
     public CustomRequestLoggingFilter requestLoggingFilter() {
         CustomRequestLoggingFilter loggingFilter = new CustomRequestLoggingFilter();
@@ -152,5 +148,5 @@ public class TableApplication {
 
         return registrationBean;
     }
-
+*/
 }

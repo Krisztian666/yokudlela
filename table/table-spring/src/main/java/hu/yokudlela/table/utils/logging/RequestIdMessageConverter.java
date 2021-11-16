@@ -5,12 +5,16 @@
  */
 package hu.yokudlela.table.utils.logging;
 
-import hu.yokudlela.table.utils.request.RequestFilter;
+
 import ch.qos.logback.classic.pattern.ClassicConverter;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import hu.yokudlela.table.spring.ApplicationContextProvider;
 import hu.yokudlela.table.utils.request.RequestBean;
 import net.logstash.logback.marker.ObjectAppendingMarker;
+
+
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.REQUEST_ID;
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.NOT_DEF;
 
 /**
  *
@@ -35,13 +39,13 @@ public class RequestIdMessageConverter extends ClassicConverter {
                 for (Object bean : event.getArgumentArray()) {
                     if (bean instanceof ObjectAppendingMarker) {
                         tmp = (ObjectAppendingMarker) bean;
-                        if (RequestFilter.REQUEST_ID.equals(tmp.getFieldName())) {
+                        if (REQUEST_ID.equals(tmp.getFieldName())) {
                             return "" + tmp.getFieldValue();
                         }
                     }
                 }
             }
         }
-        return RequestFilter.NOT_DEF;
+        return NOT_DEF;
     }
 }

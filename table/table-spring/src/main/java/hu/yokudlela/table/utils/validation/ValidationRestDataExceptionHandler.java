@@ -1,14 +1,14 @@
 package hu.yokudlela.table.utils.validation;
 
 import hu.yokudlela.table.service.BusinessException;
-import static hu.yokudlela.table.utils.request.RequestFilter.REQUEST_ID;
-import static hu.yokudlela.table.utils.request.RequestFilter.TIME_SPENT;
-import static hu.yokudlela.table.utils.request.RequestFilter.USER_ID;
+import hu.yokudlela.table.utils.request.RequestBean;
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.REQUEST_ID;
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.TIME_SPENT;
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.USER_ID;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.argument.StructuredArguments;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,8 +23,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 
-import static hu.yokudlela.table.utils.request.RequestFilter.REQUEST_ID;
-import static hu.yokudlela.table.utils.request.RequestFilter.USER_ID;
 
 /**
  * @author user
@@ -37,13 +35,13 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
     @Autowired
     HttpServletRequest req;
     
+    
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Object> customHandleNotFound(Exception ex, WebRequest request) {
         log.error(ex.getLocalizedMessage(), ex);
        ApiError res = new ApiError(req.getRequestURI(),"error.business");
 
         res.getErrors().add(ex.getMessage());
-        
         return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
@@ -61,7 +59,6 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
        for(String msg: ex.getMessage().split(",")){
         res.getErrors().add(msg.split(":")[1]);
        }
-    
         return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
 
     }
@@ -79,9 +76,11 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
         ex.getBindingResult().getFieldErrors().forEach((FieldError error) -> {
             res.getErrors().add(error.getDefaultMessage());
         });                   
-      
         return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
     
     }
     
+   
+   
+   
 }
