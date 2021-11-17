@@ -2,8 +2,8 @@
 Java Microservice projekt example.
 
 ## Task
-- Valósítsd meg hogy a REST API-d egys funkciói csak megadott jogosultsággal rendelkező felhasználók számára legyen elérhető.
-https://youtu.be/TlLSJW9fQSg
+- Loggolj!
+- https://youtu.be/uPlJ28TLCBA
 
 ## Important information
  
