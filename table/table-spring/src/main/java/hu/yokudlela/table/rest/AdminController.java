@@ -24,6 +24,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,6 +63,7 @@ public class AdminController {
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = ApiError.class)) })            
     })
+    @Cacheable(cacheNames = "tablebyid", key = "#pId")
     @Operation(summary = "Asztal lekérdezés név alapján")
     @GetMapping(path = "/getbyname/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Table getByName(
@@ -73,24 +78,35 @@ public class AdminController {
     }
     
 
+    
     @ApiResponses(value = { 
         @ApiResponse(responseCode = "200", description = "Sikeres lekérdezés", 
 	    content = { @Content(mediaType = "application/json",  
 	    array = @ArraySchema(schema = @Schema(implementation = Table.class))) }),
-      	@ApiResponse(responseCode = "400", description = "Nem megfelelő paraméter", 
-	    content = { @Content(mediaType = "application/json", 
-	    schema = @Schema(implementation = ApiError.class)) }),
 	@ApiResponse(responseCode = "500", description = "Sikertelen lekérdezés", 
 	    content = { @Content(mediaType = "application/json", 
 	    schema = @Schema(implementation = ApiError.class)) })            
-    })
+    })    
     @Operation(summary = "Asztalok lekérdezés státusz alapján")
-    @GetMapping(path = "/getbystate/{state}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Table> getByState(
-        @Parameter(description = "Asztal státusz", example = "true")
-        @Pattern(regexp = "^(true|false)")
-        @PathVariable(name = "state") String pActive) throws Exception {
-        return tableService.findByAvailable(Boolean.valueOf(pActive));
+    @Cacheable(cacheNames = "tables", key = "#root.methodName")
+    @GetMapping(path = "/getAvailableTables", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Table> getAvailableTables() throws Exception {
+        return tableService.findByAvailable(true);
+    }
+    
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Sikeres lekérdezés", 
+	    content = { @Content(mediaType = "application/json",  
+	    array = @ArraySchema(schema = @Schema(implementation = Table.class))) }),
+	@ApiResponse(responseCode = "500", description = "Sikertelen lekérdezés", 
+	    content = { @Content(mediaType = "application/json", 
+	    schema = @Schema(implementation = ApiError.class)) })            
+    })    
+    @Operation(summary = "Asztalok lekérdezés státusz alapján")
+    @Cacheable(cacheNames = "tables", key = "#root.methodName")
+    @GetMapping(path = "/getNotAvailableTables", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Table> getNotAvailableTables() throws Exception {
+        return tableService.findByAvailable(false);
     }
 
     @ApiResponses(value = { 
@@ -114,9 +130,19 @@ public class AdminController {
             @SecurityRequirement(name = "apikey",scopes = {"table"}),
             @SecurityRequirement(name = "openid",scopes = {"table"}),
             @SecurityRequirement(name = "oauth2",scopes = {"table"}),
-    })
+    })    
+    @Caching(
+            evict = {
+                @CacheEvict(cacheNames = "tables", key = "'getNotAvailableTables'"),
+                @CacheEvict(cacheNames = "tables", key = "'getAvailableTables'")
+        },
+            put = {
+                @CachePut(cacheNames = "tablebyid", key = "#pData.getName()")
+                    
+            })    
+    
     @PostMapping(path = "/add", produces = MediaType.APPLICATION_JSON_VALUE)
-   public Table add(
+    public Table add(
             Principal principal,
            @Valid
             @Parameter(description = "Az új asztal",required = true) @RequestBody(required = true) Table pData) throws Exception {
@@ -145,6 +171,11 @@ public class AdminController {
 	    content = { @Content(mediaType = "application/json") })
     })
     @Operation(summary = "Asztal törlése")
+    @Caching(evict = {
+        @CacheEvict(cacheNames = "table", key = "#pData.getName()"),
+        @CacheEvict(cacheNames = "tables", key = "'getNotAvailableTables'"),
+        @CacheEvict(cacheNames = "tables", key = "'getAvailableTables'")
+    })    
     @DeleteMapping(path = "/delete/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(
         @Parameter(description = "Asztal neve", required = true, example = "A1") 
@@ -194,6 +225,10 @@ public class AdminController {
 
             summary = "Asztal engedélyezése")
     @PutMapping(path = "/enable/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Caching(evict = {
+        @CacheEvict(cacheNames = "tables", key = "'getNotAvailableTables'"),
+        @CacheEvict(cacheNames = "tables", key = "'getAvailableTables'")
+    })    
     public void enable(
         @Parameter(description = "Asztal neve", required = true, example = "A1")
                 @NotEmpty(message = "error.table.name.notset")
@@ -235,6 +270,10 @@ public class AdminController {
     },
 
         summary = "Asztal módosítása")
+    @Caching(evict = {
+        @CacheEvict(cacheNames = "tables", key = "'getNotAvailableTables'"),
+        @CacheEvict(cacheNames = "tables", key = "'getAvailableTables'")
+    })    
     @PutMapping(path = "/disable/{name}", produces = MediaType.APPLICATION_JSON_VALUE)    
     public void disable(
         @Parameter(description = "Asztal neve", required = true)
@@ -278,6 +317,16 @@ public class AdminController {
     },
 
             summary = "Asztal módosítása")
+    @Caching(
+            evict = {
+                @CacheEvict(cacheNames = "tables", key = "'getNotAvailableTables'"),
+                @CacheEvict(cacheNames = "tables", key = "'getAvailableTables'")
+        },
+            put = {
+                @CachePut(cacheNames = "tablebyid", key = "#pData.getName()")
+                    
+            })    
+
     @PutMapping(path = "/modify", produces = MediaType.APPLICATION_JSON_VALUE)
     public Table modify(
             @Valid

@@ -9,8 +9,8 @@ services:
     ports:
       - 8080:8080
     depends_on:
-        db:
-           condition: service_healthy     
+      db:
+        condition: service_healthy
     logging:
       driver: gelf
       options:
@@ -29,11 +29,9 @@ services:
       - '3306:3306'
     restart: on-failure
     volumes:
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
-      - ${PWD}/../../disks/sql:/var/lib/mysql
-      - "${PWD}/init-db/iam.sql:/docker-entrypoint-initdb.d/1.sql:ro"
-      - "${PWD}/init-db/table-service.sql:/docker-entrypoint-initdb.d/2.sql:ro"
+     - ${PWD}/../../disks/sql:/var/lib/mysql
+     - "${PWD}/init-db/iam.sql:/docker-entrypoint-initdb.d/1.sql:ro"
+     - "${PWD}/init-db/table-service.sql:/docker-entrypoint-initdb.d/2.sql:ro"
     healthcheck:  
       test: ["CMD-SHELL", "mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;' || exit 1"]
       interval: 30s
@@ -57,20 +55,21 @@ services:
       DB_PORT: 3306
       KEYCLOAK_IMPORT: /tmp/example-realm.json
     volumes:
-      - "/etc/timezone:/etc/timezone:ro"
-      - "/etc/localtime:/etc/localtime:ro"
-      - "${PWD}/realm-export.json:/tmp/example-realm.json"
+      - ${PWD}/realm-export.json:/tmp/example-realm.json
     depends_on:
       db:
          condition: service_healthy
     links: 
         - db
-        
+  cache:
+    image: redis:6.2.6
+    ports:
+      - "6379:6379"
 
   # MongoDB: https://hub.docker.com/_/mongo/
   mongo:
    image: mongo:4.2
-   volumes:     
+   volumes:
     - ${PWD}/../../disks/mongo:/data/db
 #      networks:
 #        - graylog

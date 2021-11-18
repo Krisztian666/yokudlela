@@ -4,7 +4,6 @@ import hu.yokudlela.table.datamodel.Reservation;
 import hu.yokudlela.table.datamodel.Table;
 import hu.yokudlela.table.store.ReservationRepository;
 import hu.yokudlela.table.store.TableRepository;
-import hu.yokudlela.table.utils.logging.AspectLogger;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,8 @@ public class FreeTableService {
     TableRepository tRep;
     @Autowired
     ReservationRepository rRep;
-        
+
+//    @Cacheable(cacheNames = "table", key = "#root.methodName")
     @AspectLogger
     public List<Table> getAllFree(LocalDateTime pBegin, LocalDateTime pEnd){
         List<Table> allAvailable = tRep.findByAvailable(true);
