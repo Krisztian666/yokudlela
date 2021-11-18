@@ -4,6 +4,7 @@ import hu.yokudlela.table.datamodel.Reservation;
 import hu.yokudlela.table.datamodel.Table;
 import hu.yokudlela.table.store.ReservationRepository;
 import hu.yokudlela.table.store.TableRepository;
+import hu.yokudlela.table.utils.logging.AspectLogger;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
