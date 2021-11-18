@@ -116,6 +116,7 @@ Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összeka
   https://github.com/Krisztian666/yokudlela/tree/03-spring-rest
 ## Docker
 ### CI/CD megoldja
+  [folyamatban]
 ### Maven plugin
   https://github.com/Krisztian666/yokudlela/tree/04-spring-maven-docker
 ## Hitelesítés, Validáció Hibakezelés
@@ -132,8 +133,10 @@ Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összeka
 ## Központosított konfiguráció kezelés
 
 ## Log
-### SLF4J
-### Graylog, ElasticSearch
+### SLF4J Graylog, ElasticSearch
+  https://github.com/Krisztian666/yokudlela/tree/09-logging-logback+graylog
+## Központi konfiguráció kezelés
+### Spring cloud config
 
 ## Szolgáltatások összekapcsolása
 ### Közvetlen áthívások
