@@ -5,8 +5,9 @@ Java Microservice projekt example.
 REST Interface
 
 ## Tools
-https://spring.io/quickstart
-https://docs.docker.com/desktop/windows/install/
+- https://spring.io/quickstart
+- https://docs.docker.com/desktop/windows/install/
+- https://docs.microsoft.com/hu-hu/windows/wsl/install-manual#step-4---download-the-linux-kernel-update-package
 
 ## Important information
 https://tools.ietf.org/html/rfc2616
