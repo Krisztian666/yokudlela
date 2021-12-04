@@ -1,0 +1,171 @@
+openapi: 3.0.1
+info:
+  title: Yokudlela Table API
+  description: description = "Yokudlela Table API for Graphical User Interface .
+  contact:
+    name: Karóczkai Krisztián
+    url: https://www.4dsoft.hu
+    email: krisztian_karoczkai@4dsoft.hu
+  license:
+    name: Custom 4D Soft
+    url: https://www.4dsoft.hu
+  version: v1
+servers:
+- url: http://yokudlela:8060/media
+  description: local dev
+paths:
+  /image/addFiles:
+    post:
+      tags:
+      - image-controller
+      summary: Képfeltöltés
+      operationId: addFiles
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+              - files
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        "500":
+          description: Képfeltöltés nem lehetséges
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ImageProcessModel'
+        "200":
+          description: Sikeres képfeltöltés
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ImageProcessModel'
+      security:
+      - apikey:
+        - file
+      - openid:
+        - file
+      - oauth2:
+        - file
+  /image/getimageinfo/{id}:
+    get:
+      tags:
+      - image-controller
+      summary: Képinformációk
+      operationId: getImageInfo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Sikeres képletöltés
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageProcessModel'
+        "500":
+          description: Képletöltés nem lehetséges
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageProcessModel'
+  /image/getImage/{id}:
+    get:
+      tags:
+      - image-controller
+      summary: Képletöltés
+      operationId: getImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Sikeres képletöltés
+          content:
+            image/jpeg:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
+        "500":
+          description: Képletöltés nem lehetséges
+          content:
+            image/jpeg:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
+  /image/deleteFile/{id}:
+    delete:
+      tags:
+      - image-controller
+      summary: Képfeltöltés
+      operationId: deleteFiles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Sikeres képtörlés
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageProcessModel'
+        "500":
+          description: Képtörlés nem sikerült
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageProcessModel'
+      security:
+      - apikey:
+        - file
+      - openid:
+        - file
+      - oauth2:
+        - file
+components:
+  schemas:
+    ImageProcessModel:
+      type: object
+      properties:
+        id:
+          type: string
+  securitySchemes:
+    apikey:
+      type: apiKey
+      description: KeyCloak Yokudlela
+      name: Authorization
+      in: header
+    openid:
+      type: openIdConnect
+      description: KeyCloak Yokudlela
+      openIdConnectUrl: http://yokudlela:6080/auth/realms/yokudlela/.well-known/openid-configuration
+    oauth2:
+      type: oauth2
+      description: KeyCloak Yokudlela
+      flows:
+        implicit:
+          authorizationUrl: http://yokudlela:6080/auth/realms/yokudlela/protocol/openid-connect/auth?client_id=account&redirect_uri=http://yokudlela:8080/media/swagger-ui/oauth2-redirect.html&response_type=code&scope=openid
+          scopes: {}
