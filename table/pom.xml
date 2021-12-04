@@ -6,7 +6,7 @@
         <artifactId>yokudlela-oe</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>hu.yokudlela.table</artifactId>
+    <artifactId>table</artifactId>
     <packaging>pom</packaging>
     <modules>
         <module>table-spring</module>
