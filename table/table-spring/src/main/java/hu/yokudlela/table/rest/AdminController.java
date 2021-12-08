@@ -35,6 +35,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.FileUtils;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.representations.AccessToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,9 +167,9 @@ public class AdminController {
             Principal principal,
            @Valid
             @Parameter(description = "Az új asztal",required = true) @RequestBody(required = true) Table pData) throws Exception {
-        KeycloakPrincipal kPrincipal = (KeycloakPrincipal) principal;
-        AccessToken token = kPrincipal.getKeycloakSecurityContext().getToken();
-        Access customClaims = (Access) token.getResourceAccess("account");
+//        KeycloakPrincipal kPrincipal = (KeycloakPrincipal) principal;
+//        AccessToken token = kPrincipal.getKeycloakSecurityContext().getToken();
+//        Access customClaims = (Access) token.getResourceAccess("account");
 //        System.out.println("ROLES:"+customClaims.getRoles());
         tableService.save(pData);
         return pData;
@@ -214,13 +215,19 @@ public class AdminController {
         }
     }
 
+    @Operation(summary = "Képtörlése",
+            security = {
+            @SecurityRequirement(name = "apikey",scopes = {"file"}),
+            @SecurityRequirement(name = "openid",scopes = {"file"}),
+            @SecurityRequirement(name = "oauth2",scopes = {"file"}),
+    })           
     @DeleteMapping(path = "/deleteimage/{fileid}", produces = MediaType.TEXT_PLAIN_VALUE)
     @AspectLogger
     public String deleteImageUrl(
         HttpServletRequest request,
         @PathVariable(name = "fileid") String pId) throws ApiException {            
             ImageControllerApi api = this.mediaClient.getClientInstanceWithToken(request.getHeader("Authorization"));
-            return api.deleteFiles(pId).getId();
+            return api.deleteFiles(pId, null).getId();
     }
 
     
@@ -237,19 +244,20 @@ public class AdminController {
     @PostMapping(value = "/addFiles", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
  
     public List<ImageProcessModel> addImageUrl(
-//            @RequestHeader("Authorization") String pToken,
             HttpServletRequest request,
-            @RequestPart("files") MultipartFile[] files) throws IOException {        
-        
+            @RequestPart("files") MultipartFile[] files) throws IOException, ApiException {        
+        ImageControllerApi api = this.mediaClient.getClientInstanceWithToken(request.getHeader("Authorization"));
         File f;
         List<ImageProcessModel> result = new ArrayList();
-        for(MultipartFile f2: files){            
+        
+        
+        for(MultipartFile f2: files){          
             f = Files.createTempFile(UUID.randomUUID().toString(), ".tmp").toFile();
             f.createNewFile();
             FileOutputStream outputStream = new FileOutputStream(f);
             outputStream.write(f2.getBytes());
             outputStream.close();
-            result.addAll(this.mediaClient.uploadTempFileWithToken(request.getHeader("Authorization"), f));
+            result.addAll(api.addFiles(f, null));
         }
         return result;
     }

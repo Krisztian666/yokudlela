@@ -20,19 +20,25 @@ paths:
       - image-controller
       summary: Képfeltöltés
       operationId: addFiles
+      parameters:
+      - name: requestId
+        in: header
+        description: Hívó kérés azonosítója
+        required: false
+        schema:
+          type: string
+          default: ""
       requestBody:
         content:
           multipart/form-data:
             schema:
               required:
-              - files
+              - file
               type: object
               properties:
-                files:
-                  type: array
-                  items:
-                    type: string
-                    format: binary
+                file:
+                  type: string
+                  format: binary
       responses:
         "500":
           description: Képfeltöltés nem lehetséges
@@ -69,6 +75,13 @@ paths:
         required: true
         schema:
           type: string
+      - name: requestId
+        in: header
+        description: Hívó kérés azonosítója
+        required: false
+        schema:
+          type: string
+          default: ""
       responses:
         "200":
           description: Sikeres képletöltés
@@ -94,6 +107,13 @@ paths:
         required: true
         schema:
           type: string
+      - name: requestId
+        in: header
+        description: Hívó kérés azonosítója
+        required: false
+        schema:
+          type: string
+          default: ""
       responses:
         "200":
           description: Sikeres képletöltés
@@ -125,6 +145,13 @@ paths:
         required: true
         schema:
           type: string
+      - name: requestId
+        in: header
+        description: Hívó kérés azonosítója
+        required: false
+        schema:
+          type: string
+          default: ""
       responses:
         "200":
           description: Sikeres képtörlés
@@ -167,5 +194,5 @@ components:
       description: KeyCloak Yokudlela
       flows:
         implicit:
-          authorizationUrl: http://yokudlela:6080/auth/realms/yokudlela/protocol/openid-connect/auth?client_id=account&redirect_uri=http://yokudlela:8080/media/swagger-ui/oauth2-redirect.html&response_type=code&scope=openid
+          authorizationUrl: http://yokudlela:6080/auth/realms/yokudlela/protocol/openid-connect/auth?client_id=account&redirect_uri=http://yokudlela:8060/media/swagger-ui/oauth2-redirect.html&response_type=code&scope=openid
           scopes: {}

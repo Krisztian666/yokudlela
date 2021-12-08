@@ -23,5 +23,9 @@
 hs_err_pid*
 /table/table-datamodel/target/
 /table/table-spring/target/
-/table/table-spring/src/main/resources/docker/disks/sql/
+/table/table-spring/logs/
+/table/media-spring/logs/
+/table/table-spring/src/main/disks/
 /table/table-spring/src/main/resources/compose/
+/media/media-spring/target/
+/media/media-java-client/target/

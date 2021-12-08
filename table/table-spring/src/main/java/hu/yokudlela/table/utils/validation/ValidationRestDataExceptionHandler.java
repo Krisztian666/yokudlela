@@ -1,5 +1,6 @@
 package hu.yokudlela.table.utils.validation;
 
+import hu.yokudlela.media.java.clients.invoker.ApiException;
 import hu.yokudlela.table.service.BusinessException;
 import hu.yokudlela.table.utils.request.RequestBean;
 import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.REQUEST_ID;
@@ -36,6 +37,17 @@ public class ValidationRestDataExceptionHandler extends ResponseEntityExceptionH
     HttpServletRequest req;
     
     
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<Object> apiError(ApiException ex, WebRequest request) {
+        log.error(ex.getLocalizedMessage(), ex);
+       ApiError res = new ApiError(req.getRequestURI(),"api.exception");
+
+        res.getErrors().add(ex.getMessage());
+        return new ResponseEntity<>(res, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+            
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Object> customHandleNotFound(Exception ex, WebRequest request) {
         log.error(ex.getLocalizedMessage(), ex);

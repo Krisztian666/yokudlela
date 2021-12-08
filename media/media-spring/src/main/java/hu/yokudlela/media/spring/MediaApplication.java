@@ -37,6 +37,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author (K)risztián
  */
+
 @SecurityScheme(
         type = SecuritySchemeType.OAUTH2,
         name = "oauth2",
@@ -44,7 +45,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         flows = @OAuthFlows(
                 implicit = @OAuthFlow(authorizationUrl = "http://yokudlela:6080/auth/realms/yokudlela/protocol/openid-connect/auth"
                         + "?client_id=account"
-                        + "&redirect_uri=http://yokudlela:8080/media/swagger-ui/oauth2-redirect.html"
+                        + "&redirect_uri=http://yokudlela:8060/media/swagger-ui/oauth2-redirect.html"
                         + "&response_type=code"
                         + "&scope=openid")
         )
@@ -68,7 +69,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         servers = {
             @Server(url = "http://yokudlela:8060/media", description = "local dev")},
         info = @Info(
-                title = "Yokudlela Table API",
+                title = "Yokudlela Medi API",
                 version = "v1",
                 description = "description = \"Yokudlela Table API for Graphical User Interface .",
                 license = @License(
