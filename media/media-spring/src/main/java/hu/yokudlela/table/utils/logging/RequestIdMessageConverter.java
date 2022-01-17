@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package hu.yokudlela.table.utils.logging;
 
 
@@ -15,6 +10,7 @@ import net.logstash.logback.marker.ObjectAppendingMarker;
 
 import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.REQUEST_ID;
 import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.NOT_DEF;
+import static hu.yokudlela.table.utils.logging.CustomRequestLoggingFilter.USER_ID;
 
 /**
  *
@@ -46,6 +42,7 @@ public class RequestIdMessageConverter extends ClassicConverter {
                 }
             }
         }
+        if(event.getMDCPropertyMap().get(REQUEST_ID)!=null){return event.getMDCPropertyMap().get(REQUEST_ID);}
         return NOT_DEF;
     }
 }

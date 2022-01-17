@@ -46,6 +46,7 @@ public class UserIdMessageConverter extends ClassicConverter{
                 }
             }
         }
+        if(event.getMDCPropertyMap().get(USER_ID)!=null){return event.getMDCPropertyMap().get(USER_ID);}
         return NOT_DEF;
     }
     

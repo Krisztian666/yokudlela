@@ -1,5 +1,7 @@
 package hu.yokudlela.media.spring;
 
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import hu.yokudlela.media.rabbit.Receiver;
 import hu.yokudlela.table.utils.request.RequestBean;
 import hu.yokudlela.table.utils.request.UserNameInjectInterceptor;
 import hu.yokudlela.table.utils.validation.ValidationRestDataExceptionHandler;
@@ -14,6 +16,13 @@ import io.swagger.v3.oas.annotations.security.OAuthFlows;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.jboss.logging.MDC;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
+import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -27,6 +36,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.messaging.converter.MappingJackson2MessageConverter;
+import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -85,6 +96,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ComponentScan(basePackages = {
     "hu.yokudlela.table.service",
     "hu.yokudlela.media.rest",
+    "hu.yokudlela.media.rabbit",
     "hu.yokudlela.table.utils.request",
     "hu.yokudlela.table.utils.logging"
 })
@@ -137,27 +149,29 @@ public class MediaApplication {
         multipartResolver.setMaxUploadSize(100000);
         return multipartResolver;
     }
-/*
+    
+    private static final String mqExchange = "menuadmin";
+    private static final String mqQueue = "menuadmin.add";
+    
     @Bean
-    public CustomRequestLoggingFilter requestLoggingFilter() {
-        CustomRequestLoggingFilter loggingFilter = new CustomRequestLoggingFilter();
-        loggingFilter.setIncludeClientInfo(true);
-        loggingFilter.setIncludeQueryString(true);
-        loggingFilter.setIncludePayload(true);
-        loggingFilter.setIncludeHeaders(true);
-        loggingFilter.setMaxPayloadLength(64000);
-        
-        return loggingFilter;
+    Queue queue() {
+        return new Queue(mqQueue, false);
     }
 
     @Bean
-    public FilterRegistrationBean<RequestFilter> loggingFilter() {
-        FilterRegistrationBean<RequestFilter> registrationBean
-                = new FilterRegistrationBean<>();
-
-        registrationBean.setFilter(new RequestFilter());
-
-        return registrationBean;
+    TopicExchange exchange() {
+        return new TopicExchange(mqExchange);
     }
-*/
+
+    @Bean
+    Binding binding(Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
+    }
+    
+    
+    @Bean
+    Jackson2JsonMessageConverter rabbitMessageConverter(){
+        return new Jackson2JsonMessageConverter();
+    }
+    
 }
