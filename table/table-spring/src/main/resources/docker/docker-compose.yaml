@@ -124,3 +124,17 @@ services:
 #  networks:
 #    graylog:
 #      driver: bridge
+
+
+rabbitmq:
+    image: rabbitmq:3.9-management
+    environment:
+      RABBITMQ_DEFAULT_USER: yokudlela
+      RABBITMQ_DEFAULT_PASS: yokudlela
+    volumes:
+      - ${PWD}/../../disks/rabbitmqdata:/var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+
