@@ -150,8 +150,8 @@ public class MediaApplication {
         return multipartResolver;
     }
     
-    private static final String mqExchange = "menuadmin";
-    private static final String mqQueue = "menuadmin.add";
+    private static final String mqExchange = "media";
+    private static final String mqQueue = "media.file";
     
     @Bean
     Queue queue() {
@@ -166,12 +166,6 @@ public class MediaApplication {
     @Bean
     Binding binding(Queue queue, TopicExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with("foo.bar.#");
-    }
-    
-    
-    @Bean
-    Jackson2JsonMessageConverter rabbitMessageConverter(){
-        return new Jackson2JsonMessageConverter();
     }
     
 }

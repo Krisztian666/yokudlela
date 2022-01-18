@@ -225,8 +225,8 @@
                                     <descriptorRef>artifact</descriptorRef>
                                 </assembly>
                                 <tags>
-                                    <tag>table-latest</tag>
-                                    <tag>table-7.0</tag>
+                                    <tag>media-latest</tag>
+                                    <tag>media-11.0</tag>
                                 </tags>
                                 <assembly>
                                     <inline>
@@ -234,7 +234,7 @@
                                             <file>
                                                 <source>${project.build.directory}/table-spring.jar</source>
                                                 <outputDirectory>./opt</outputDirectory>
-                                                <destName>table-spring.jar</destName>
+                                                <destName>media-spring.jar</destName>
                                             </file>
                                         </files>
                                     </inline>

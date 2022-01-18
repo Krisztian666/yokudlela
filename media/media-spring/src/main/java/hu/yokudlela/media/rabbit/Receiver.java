@@ -30,7 +30,7 @@ public class Receiver {//implements MessageListener {
     
 
     @AspectLogger
-    @RabbitListener(queues = "menuadmin.add")
+    @RabbitListener(queues = "media.file")
     public void onMessage(Message message) throws IOException {
         //user = new RequestBean();
 //        MDC.put("clientid",message.getMessageProperties().getHeaders().get("client").toString());
