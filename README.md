@@ -99,6 +99,11 @@ Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összeka
 - Admin, belső Product törzset módosítani
 
 ## Selejtezés, hulladék kezelés
+### Nyílvántartjuk
+- mikor, mit dobunk ki(maradék, készétel aminek lejárt a tárolási ideje, lejárt a szavatossága)
+### Fontosabb üzleti funkciók
+- hulladék keletkezett (mi az)
+- hulladék ürítés
 
 ## Kassza
 
