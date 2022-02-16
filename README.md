@@ -72,7 +72,12 @@ Adott napokra lehessen a recept gyűjteményből nagy mennyiségben ételeket k�
 ## Folyamatok
 
 ## Pincér
-
+### Nyilvántartunk
+- milyen megrendelés, mikor melyik asztalon
+- megrendelések állapota: fevéve, kivíve, fizetve 
+### Üzleti funkció
+- megrednelés
+- fizetés(egybe vagy téelenként)
 ## Beszállítók
 Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összekapcsolni.
 ### Egy supplier-ről nyilván tartjuk
