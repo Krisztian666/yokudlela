@@ -7,7 +7,7 @@ Asztalok kezeléséhez és foglaláshoz szükséges adatszerkezetek.
 
 ## Feladat
 Hozd létre a számodra szükséges adatszerkezeteket.
-
+https://app.diagrams.net/#G1Uz0YXCrS7XhJ1C23NNlBCfHRDLP2fCn2
 
 ## Tools
 Lombok (https://projectlombok.org/)
