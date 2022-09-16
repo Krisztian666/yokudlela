@@ -72,12 +72,18 @@ Adott napokra lehessen a recept gyűjteményből nagy mennyiségben ételeket k�
 ## Folyamatok
 
 ## Pincér
+### adatszerkezeteket: https://app.diagrams.net/#G1Uz0YXCrS7XhJ1C23NNlBCfHRDLP2fCn2
+
 ### Nyilvántartunk
-- milyen megrendelés, mikor melyik asztalon
-- megrendelések állapota: fevéve, kivíve, fizetve 
+- milyen megrendelés, mikor melyik asztalon, hány darab, milyen megjegyzés, melyik csoport/pár
+- megrendelések állapota: fevéve, elkészült, kivíve, fizetve 
 ### Üzleti funkció
 - megrednelés
 - fizetés(egybe vagy téelenként)
+- asztalra kiszállítás
+- törlés (he lehet)
+- státusz lekérdezás
+
 ## Beszállítók
 Ez egy "piac" szolgáltatás ami képes a keresletet és a kínálatott összekapcsolni.
 ### Egy supplier-ről nyilván tartjuk
