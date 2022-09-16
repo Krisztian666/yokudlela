@@ -72,8 +72,8 @@ Adott napokra lehessen a recept gyűjteményből nagy mennyiségben ételeket k�
 ## Folyamatok
 
 ## Pincér
-### adatszerkezeteket: https://app.diagrams.net/#G1Uz0YXCrS7XhJ1C23NNlBCfHRDLP2fCn2
-
+### adatszerkezeteket: 
+ https://drive.google.com/file/d/1Uz0YXCrS7XhJ1C23NNlBCfHRDLP2fCn2/view?usp=sharing
 ### Nyilvántartunk
 - milyen megrendelés, mikor melyik asztalon, hány darab, milyen megjegyzés, melyik csoport/pár
 - megrendelések állapota: fevéve, elkészült, kivíve, fizetve 
