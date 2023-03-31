@@ -1,0 +1,16 @@
+hu/yokudlela/autotests/rest/PatchRequestTest.class
+hu/yokudlela/autotests/util/EmailUtil.class
+hu/yokudlela/autotests/ApiTests.class
+hu/yokudlela/autotests/util/HeaderNames.class
+hu/yokudlela/autotests/amqp/AMQPUtils.class
+hu/yokudlela/autotests/util/ServiceConfig.class
+hu/yokudlela/autotests/util/BasicPropertiesImpl.class
+hu/yokudlela/autotests/rest/GetRequestTest.class
+hu/yokudlela/autotests/util/BasicPropertiesImpl$BasicPropertiesImplBuilder.class
+hu/yokudlela/autotests/util/SystemFunctions.class
+hu/yokudlela/autotests/util/NetworkFunctions.class
+hu/yokudlela/autotests/util/EmailUtil$SMTPAuthenticator.class
+hu/yokudlela/autotests/rest/PutRequestTest.class
+hu/yokudlela/autotests/ui/UIFunctions.class
+hu/yokudlela/autotests/BaseFeature.class
+hu/yokudlela/autotests/rest/PostRequestTest.class

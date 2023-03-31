@@ -16,7 +16,14 @@ services:
       options:
         gelf-address: "udp://yokudlela:12201"
 
-
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 9000:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_DB=db
   db:
     image: mariadb:10.1.34
     environment:

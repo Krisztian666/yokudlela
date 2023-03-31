@@ -8,6 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="table-datamodel" />
+        <module name="table-spring" />
+        <module name="automatatests" />
       </profile>
     </annotationProcessing>
   </component>

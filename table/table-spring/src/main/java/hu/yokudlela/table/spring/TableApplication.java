@@ -41,9 +41,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         name = "oauth2",
         description = "KeyCloak Yokudlela",
         flows = @OAuthFlows(
-                implicit = @OAuthFlow(authorizationUrl = "http://yokudlela:6080/auth/realms/yokudlela/protocol/openid-connect/auth"
+                implicit = @OAuthFlow(authorizationUrl = "https://yokudlela.drhealth.cloud/auth/realms/yokudlela/protocol/openid-connect/auth"
                         + "?client_id=account"
-                        + "&redirect_uri=http://yokudlela:8080/table/swagger-ui/oauth2-redirect.html"
+                        + "&redirect_uri=https://yokudlela.drhealth.cloud/table/swagger-ui/oauth2-redirect.html"
                         + "&response_type=code"
                         + "&scope=openid")
         )
@@ -60,21 +60,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
         type = SecuritySchemeType.OPENIDCONNECT,
         name = "openid",
         description = "KeyCloak Yokudlela",
-        openIdConnectUrl = "http://yokudlela:6080/auth/realms/yokudlela/.well-known/openid-configuration"
-)
+        openIdConnectUrl = "https://yokudlela.drhealth.cloud/auth/realms/yokudlela/.well-known/openid-configuration"
+        )
 
 @OpenAPIDefinition(
         servers = {
-            @Server(url = "http://yokudlela:8080/table", description = "local dev")},
+            @Server(url = "https://yokudlela.drhealth.cloud/table", description = "production"),
+			@Server(url = "https://table.yokudlela.drhealth.cloud/table", description = "dev"),
+			@Server(url = "https://integration.yokudlela.drhealth.cloud/table", description = "integration"),
+			@Server(url = "http://localhost:8080/table", description = "local dev"),
+		},
+
         info = @Info(
-                title = "Yokudlela Table API",
-                version = "v1",
-                description = "description = \"Yokudlela Table API for Graphical User Interface .",
+                title = "Yokudlela Table API", 
+                version = "v1", 
+                description = "description = \"Yokudlela Table API for Graphical User Interface .", 
                 license = @License(
-                        name = "Custom 4D Soft",
-                        url = "https://www.4dsoft.hu"),
+                        name = "Custom 4D Soft", 
+                        url = "https://www.4dsoft.hu"), 
                 contact = @Contact(
-                        url = "https://www.4dsoft.hu",
+                        url = "https://www.4dsoft.hu", 
                         name = "Karóczkai Krisztián", email = "krisztian_karoczkai@4dsoft.hu")))
 
 @Configuration

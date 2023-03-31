@@ -7,6 +7,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>table</module>
+        <module>automatatests</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

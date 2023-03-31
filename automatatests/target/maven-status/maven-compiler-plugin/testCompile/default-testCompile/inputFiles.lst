@@ -1,0 +1,14 @@
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/rest/GetRequestTest.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/util/ServiceConfig.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/util/HeaderNames.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/ApiTests.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/util/NetworkFunctions.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/rest/PostRequestTest.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/amqp/AMQPUtils.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/util/BasicPropertiesImpl.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/util/SystemFunctions.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/BaseFeature.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/rest/PatchRequestTest.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/ui/UIFunctions.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/util/EmailUtil.java
+/home/krisztian/yokudlela/yokudlela-v3/table/java_springboot/automatatests/src/test/java/hu/yokudlela/autotests/rest/PutRequestTest.java
